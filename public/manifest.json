@@ -1,0 +1,15 @@
+{
+  "short_name": "Busi App",
+  "name": "Busi App - Gestión de Negocios",
+  "icons": [
+    {
+      "src": "logo-square.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#22c55e",
+  "background_color": "#ffffff"
+}
