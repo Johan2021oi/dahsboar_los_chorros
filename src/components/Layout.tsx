@@ -124,19 +124,16 @@ export default function Layout() {
                       }
                     `}
                   >
-                    <div className={`transition-all duration-500 ${isActive ? "scale-110 rotate-0" : "group-hover:rotate-12"}`}>
+                    <div className={`transition-all duration-500 ${isActive ? "scale-110 rotate-0" : "group-hover:scale-110"}`}>
                       <item.icon
                         size={20}
                         strokeWidth={isActive ? 2.5 : 2}
-                        className={isActive ? "text-farm" : "group-hover:text-gray-900"}
+                        className={isActive ? "text-farm" : "text-gray-400 group-hover:text-gray-600"}
                       />
                     </div>
-                    <span className="text-[13px] tracking-wide">
+                    <span className={`text-sm tracking-wide ${isActive ? "font-bold" : "font-medium"}`}>
                       {item.name}
                     </span>
-                    {isActive && (
-                      <div className="absolute right-4 w-1.5 h-1.5 bg-farm rounded-full shadow-[0_0_12px_rgba(34,197,94,0.5)]" />
-                    )}
                   </Link>
                 );
               })}
@@ -144,34 +141,23 @@ export default function Layout() {
           </div>
 
           {/* User & Utils Area */}
-          <div className="p-6 mt-4 space-y-3 border-t border-gray-50 bg-gray-50/20">
-            <div className="px-5 py-3 border border-gray-100 rounded-[1.25rem] bg-white shadow-sm flex items-center gap-4 group hover:border-farm/30 transition-all duration-500">
-              <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-[10px] font-black text-farm shrink-0 border border-white/10 uppercase">
-                {user?.email?.charAt(0) || "U"}
-              </div>
-              <div className="min-w-0">
-                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Operador</p>
-                <p className="text-[11px] font-bold text-gray-700 truncate">{user?.email}</p>
-              </div>
-            </div>
-
+          <div className="p-6 mt-4 flex items-center justify-between gap-2">
             <button
               onClick={() => setSettingsOpen(true)}
-              className="flex items-center gap-4 w-full px-6 py-4 rounded-[1.25rem] text-gray-400 hover:bg-white hover:text-gray-900 transition-all duration-500 font-black group shadow-sm hover:shadow-md border border-transparent hover:border-gray-100"
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl text-gray-400 hover:bg-gray-50 hover:text-gray-900 transition-all duration-300 font-semibold group flex-1"
             >
               <Settings
-                size={20}
+                size={18}
                 className="group-hover:rotate-90 transition-transform duration-700"
               />
-              <span className="text-[11px] tracking-widest">Ajustes</span>
+              <span className="text-sm">Ajustes</span>
             </button>
-
             <button
               onClick={handleLogout}
-              className="flex items-center gap-4 w-full px-6 py-4 rounded-[1.25rem] text-red-400 hover:bg-red-50 hover:text-red-500 transition-all duration-500 font-black group"
+              className="p-3 rounded-2xl text-red-400 hover:bg-red-50 hover:text-red-500 transition-all duration-300 group shrink-0"
+              title="Salir del Portal"
             >
-              <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
-              <span className="text-[11px] tracking-widest">Salir del Portal</span>
+              <LogOut size={18} className="group-hover:-translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>
