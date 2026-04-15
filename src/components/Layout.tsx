@@ -31,7 +31,12 @@ export default function Layout() {
     { name: "Gastos/Egresos", path: "/gastos", icon: ReceiptText },
     { name: "Inventario", path: "/inventario", icon: Box },
   ];
+  const { user, signOut } = useAuth();
   const isElectron = typeof window !== 'undefined' && !!window.electron;
+
+  const handleLogout = async () => {
+    await signOut();
+  };
 
   return (
     <div className="h-screen relative overflow-hidden bg-gray-50">
@@ -116,9 +121,14 @@ export default function Layout() {
               })}{" "}
             </nav>{" "}
           </div>{" "}
-          {/* Bottom Utils - Settings Button */}{" "}
-          <div className="p-6 bg-gray-50/5 border-t border-gray-50 animate-in slide-in-from-bottom-4 duration-500">
+          {/* Bottom Utils */}{" "}
+          <div className="p-6 bg-gray-50/5 space-y-2 border-t border-gray-50 animate-in slide-in-from-bottom-4 duration-500">
             {" "}
+            <div className="px-4 py-2 border border-gray-100 rounded-2xl bg-gray-50/30 overflow-hidden mb-2">
+              <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest leading-none mb-1">Usuario</p>
+              <p className="text-xs font-bold text-gray-600 truncate">{user?.email}</p>
+            </div>
+
             <button
               onClick={() => setSettingsOpen(true)}
               className="flex items-center gap-3.5 w-full px-4 py-4 rounded-2xl text-gray-400 hover:bg-white hover:text-gray-900 transition-all font-black group shadow-sm hover:shadow-md border border-transparent hover:border-gray-100"
@@ -129,6 +139,18 @@ export default function Layout() {
                 className="group-hover:rotate-45 transition-transform duration-700"
               />{" "}
               <span className="text-sm tracking-tight">Ajustes</span>{" "}
+            </button>{" "}
+
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3.5 w-full px-4 py-4 rounded-2xl text-red-400 hover:bg-red-50 hover:text-red-600 transition-all font-black group"
+            >
+              {" "}
+              <LogIn
+                size={20}
+                className="rotate-180"
+              />{" "}
+              <span className="text-sm tracking-tight">Cerrar Sesión</span>{" "}
             </button>{" "}
           </div>{" "}
         </div>{" "}
