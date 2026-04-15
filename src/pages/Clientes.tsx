@@ -341,20 +341,20 @@ export default function Clientes() {
       }}
     >
       {" "}
-      <div className="hidden lg:flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 mb-8">
+      <div className="hidden lg:flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8 mb-4">
         <div className="text-left">
-          <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
+          <h1 className="text-lg font-bold text-gray-900 tracking-tight uppercase">
             GESTIÓN DE CLIENTES
           </h1>
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
+          <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5 leading-none">
             ADMINISTRA TU CARTERA Y CONTACTOS ESTRATÉGICOS
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 lg:gap-3 flex-wrap mb-8">
+      <div className="flex items-center gap-2 lg:gap-3 flex-wrap mb-4">
         <button
           onClick={() => setShowArchived(!showArchived)}
-          className={`flex-1 lg:flex-none px-4 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${
+          className={`flex-1 lg:flex-none px-3 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
             showArchived
               ? "bg-amber-500 text-white hover:bg-amber-600 shadow-lg shadow-amber/20"
               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -362,22 +362,22 @@ export default function Clientes() {
         >
           {showArchived ? (
             <>
-              <Users size={18} />
-              <span className="text-sm">Ver Activos</span>
+              <Users size={16} />
+              <span className="text-xs">Ver Activos</span>
             </>
           ) : (
             <>
-              <Archive size={18} />
-              <span className="text-sm">Ver Archivados</span>
+              <Archive size={16} />
+              <span className="text-xs">Ver Archivados</span>
             </>
           )}
         </button>
         {!showArchived && (
           <button
             onClick={() => openModal()}
-            className="flex-1 lg:flex-none bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-farm/20 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
+            className="flex-1 lg:flex-none bg-farm hover:bg-farm-dark text-white px-4 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-farm/20 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
           >
-            <Plus size={20} /> <span className="text-sm">Nuevo Cliente</span>
+            <Plus size={18} /> <span className="text-xs">Nuevo Cliente</span>
           </button>
         )}
       </div>

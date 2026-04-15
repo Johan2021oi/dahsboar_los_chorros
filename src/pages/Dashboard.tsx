@@ -199,11 +199,11 @@ export default function Dashboard() {
       minimumFractionDigits: 0,
     }).format(val);
   return (
-    <div className="max-w-7xl mx-auto space-y-6 lg:space-y-10 animate-in fade-in duration-500">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 relative z-40">
+    <div className="max-w-7xl mx-auto space-y-4 lg:space-y-10 animate-in fade-in duration-500">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8 relative z-40">
         <div className="flex flex-row items-center gap-4 min-w-0">
           <div className="shrink-0">
-            <h1 className="text-xl font-black text-gray-900 tracking-tight hidden lg:flex items-center gap-3 whitespace-nowrap">
+            <h1 className="text-lg font-bold text-gray-900 tracking-tight hidden lg:flex items-center gap-3 whitespace-nowrap">
               DASHBOARD GENERAL
             </h1>
             <div className="flex flex-col gap-1 mt-1">
@@ -330,39 +330,39 @@ export default function Dashboard() {
         ].map((s, i) => (
           <div
             key={i}
-            className="relative group bg-white p-5 lg:p-7 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all hover:-translate-y-1 duration-500"
+            className="relative group bg-white p-4 lg:p-7 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all hover:-translate-y-1 duration-500"
           >
             <div className="relative flex flex-col h-full justify-between">
               {" "}
               <div className="flex justify-between items-center mb-1">
                 {" "}
                 <div
-                  className={`p-3 rounded-2xl bg-${s.color}/10 text-${s.color} shadow-inner`}
+                  className={`p-2.5 rounded-xl bg-${s.color}/10 text-${s.color} shadow-inner`}
                 >
                   {" "}
-                  <s.icon size={24} />{" "}
+                  <s.icon size={20} />{" "}
                 </div>{" "}
                 {s.trend && (
                   <div
-                    className={`flex items-center gap-1 text-[10px] font-black ${s.up ? "text-farm" : "text-red-500"}`}
+                    className={`flex items-center gap-1 text-[10px] font-bold ${s.up ? "text-farm" : "text-red-500"}`}
                   >
                     {" "}
                     {s.up ? (
-                      <ArrowUpRight size={14} />
+                      <ArrowUpRight size={12} />
                     ) : (
-                      <ArrowDownRight size={14} />
+                      <ArrowDownRight size={12} />
                     )}{" "}
                     {s.trend}{" "}
                   </div>
                 )}{" "}
               </div>{" "}
-              <div className="mt-4">
+              <div className="mt-3">
                 {" "}
-                <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest leading-none">
+                <p className="text-[9px] font-medium text-gray-400 uppercase tracking-widest leading-none">
                   {s.label}
                 </p>{" "}
                 <h3
-                  className={`text-xl font-black tracking-tight ${s.isNet ? (stats.utilidad < 0 ? "text-red-600" : "text-blue-600") : (s.color === "red-600" ? "text-red-600" : "text-gray-900")}`}
+                  className={`text-lg lg:text-xl font-bold tracking-tight ${s.isNet ? (stats.utilidad < 0 ? "text-red-600" : "text-blue-600") : (s.color === "red-600" ? "text-red-600" : "text-gray-900")}`}
                 >
                   {s.value}
                 </h3>{" "}
@@ -373,9 +373,9 @@ export default function Dashboard() {
       </div>{" "}
       <div
       className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 animate-in fade-in duration-500 px-4"
-    >    <div className="bg-white p-4 lg:p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[350px] lg:h-[420px]">
-          <div className="flex items-center justify-between mb-4 shrink-0">
-            <h3 className="text-lg font-black text-gray-800 tracking-tight uppercase">
+    >    <div className="bg-white p-3 lg:p-8 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[300px] lg:h-[420px]">
+          <div className="flex items-center justify-between mb-3 shrink-0">
+            <h3 className="text-sm font-bold text-gray-800 tracking-tight uppercase">
               FLUJO DE INGRESOS
             </h3>
 {" "}

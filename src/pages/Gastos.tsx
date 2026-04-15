@@ -202,10 +202,10 @@ export default function Gastos() {
       {/* Header General */}
       <div className="hidden lg:flex flex-row items-center justify-between gap-6 px-0">
         <div>
-          <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase text-left">
+          <h1 className="text-lg font-bold text-gray-900 tracking-tight uppercase text-left">
             Gestión de Egresos
           </h1>
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none text-left">
+          <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5 leading-none text-left">
             REGISTRA Y CONTROLA LAS SALIDAS DE DINERO
           </p>
         </div>
@@ -214,9 +214,9 @@ export default function Gastos() {
       <div className="flex flex-col lg:flex-row lg:items-center justify-end gap-6 px-4 lg:px-0 lg:mt-[-72px]">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="w-full lg:w-auto bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-xl shadow-red-500/20 active:scale-95 uppercase tracking-wide whitespace-nowrap"
+          className="w-full lg:w-auto bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 uppercase tracking-wide whitespace-nowrap"
         >
-          <Plus size={20} /> <span className="text-sm">REGISTRAR GASTO</span>
+          <Plus size={18} /> <span className="text-xs">REGISTRAR GASTO</span>
         </button>
       </div>
 

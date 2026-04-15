@@ -435,24 +435,24 @@ link.click();
       <div className="space-y-8 relative z-20">
         <div className="hidden lg:flex items-center justify-between px-2">
           <div>
-            <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
+            <h1 className="text-lg font-bold text-gray-900 tracking-tight uppercase">
               {editingId ? "Editar Venta" : "Nueva Venta"}
             </h1>
-            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
+            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5 leading-none">
               {editingId
                 ? "Ajusta los detalles del despacho"
                 : "GESTIONA EL DESPACHO DE PRODUCTOS"}
             </p>
           </div>
-          <div className="p-3 bg-farm/10 rounded-[1.25rem] text-farm shadow-inner">
-            <ShoppingCart size={24} />
+          <div className="p-2 bg-farm/10 rounded-[1rem] text-farm shadow-inner">
+            <ShoppingCart size={20} />
           </div>
         </div>
 
-        <div className="bg-white p-6 lg:p-10 rounded-[2rem] lg:rounded-[3rem] shadow-2xl border border-white/20 relative flex flex-col h-fit">
-          <div className="flex-1 -mx-2 px-2 pr-4">
-            <form onSubmit={handleSubmit} className="space-y-8 lg:space-y-10 pb-4">
-              <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-6 lg:gap-8 items-start">
+        <div className="bg-white p-4 lg:p-10 rounded-[1.5rem] lg:rounded-[3rem] shadow-2xl border border-white/20 relative flex flex-col h-fit">
+          <div className="flex-1 -mx-1 px-1 pr-3">
+            <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-10 pb-2">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-4 lg:gap-8 items-start">
                 <div className="space-y-4 relative">
                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1.5 flex items-center gap-2">
                     <User size={14} className="text-farm" /> CLIENTE

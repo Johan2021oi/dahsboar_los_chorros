@@ -168,10 +168,10 @@ export default function Inventario() {
       <div className="hidden lg:flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 shrink-0 mb-4 px-2 lg:px-0">
         <div className="flex items-center gap-6">
           <div>
-            <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
+            <h1 className="text-lg font-bold text-gray-900 tracking-tight uppercase">
               INVENTARIO Y STOCK
             </h1>
-            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
+            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5 leading-none">
               MONITOREA LA EXISTENCIA DE PRODUCTOS Y SUMINISTROS
             </p>
         </div>
@@ -185,9 +185,9 @@ export default function Inventario() {
             setEditingId(null);
             setIsModalOpen(true);
           }}
-          className="w-full lg:w-auto bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
+          className="w-full lg:w-auto bg-farm hover:bg-farm-dark text-white px-5 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
         >
-          <Plus size={20} /> <span className="text-sm">NUEVO PRODUCTO</span>
+          <Plus size={18} /> <span className="text-xs">NUEVO PRODUCTO</span>
         </button>
       </div>
 

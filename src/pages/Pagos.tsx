@@ -264,10 +264,10 @@ export default function Pagos() {
         <div className="hidden lg:flex justify-between items-start">
           {" "}
           <div>
-            <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
+            <h1 className="text-lg font-bold text-gray-900 tracking-tight uppercase">
               Control de Abonos
             </h1>
-            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
+            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5 leading-none">
               GESTIÓN DE CARTERA Y ABONOS A CAPITAL
             </p>
           </div>{" "}
