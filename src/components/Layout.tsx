@@ -77,7 +77,7 @@ export default function Layout() {
         {/* Sidebar Premium */}
         <div
           className={` 
-            fixed lg:static inset-y-0 left-0 w-72 bg-white transform transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] z-40 flex flex-col 
+            fixed lg:static inset-y-0 left-0 w-72 bg-white transform transition-all duration-700 ease-out z-40 flex flex-col 
             border-r border-gray-100/80
             ${isElectron ? "pt-12" : "pt-4"} 
             ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
