@@ -66,21 +66,21 @@ export default function Register() {
             <h1 className="text-[22px] font-black text-gray-900 tracking-[-0.04em] uppercase leading-tight mb-2">
               Nuevo Negocio
             </h1>
-            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-none">
+            <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest leading-none">
               Únete a la nueva era de gestión inteligente
             </p>
           </div>
 
           <form onSubmit={handleRegister} className="space-y-3">
             {error && (
-              <div className={`p-4 rounded-2xl flex items-center gap-3 text-sm font-bold border animate-in shake duration-300 ${error.includes('creada') ? 'bg-green-50 text-green-600 border-green-100' : 'bg-red-50 text-red-600 border-red-100'}`}>
+              <div className={`p-4 rounded-2xl flex items-center gap-3 text-sm font-medium border animate-in shake duration-300 ${error.includes('creada') ? 'bg-green-50 text-green-600 border-green-100' : 'bg-red-50 text-red-600 border-red-100'}`}>
                 <AlertCircle size={18} />
                 {error}
               </div>
             )}
 
             <div className="space-y-1 group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
+              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
                 Nombre del Negocio
               </label>
               <div className="relative">
@@ -91,14 +91,14 @@ export default function Register() {
                   required
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="Ej: Granja Los Chorros"
                 />
               </div>
             </div>
 
             <div className="space-y-1 group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
+              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
                 Correo Electrónico
               </label>
               <div className="relative">
@@ -108,14 +108,14 @@ export default function Register() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="ejemplo@correo.com"
                 />
               </div>
             </div>
 
             <div className="space-y-1 group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
+              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
                 Contraseña
               </label>
               <div className="relative">
@@ -126,7 +126,7 @@ export default function Register() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="Mínimo 6 caracteres"
                 />
               </div>
@@ -155,12 +155,12 @@ export default function Register() {
           </form>
 
           <footer className="mt-5 pt-5 border-t border-gray-50 flex flex-col items-center gap-3">
-            <p className="text-gray-400 font-bold text-[13px] tracking-tight">
+            <p className="text-gray-400 font-medium text-[13px] tracking-tight">
               ¿Ya tienes una cuenta?
             </p>
             <Link 
               to="/login" 
-              className="text-farm font-black text-sm uppercase tracking-widest hover:text-gray-900 transition-all duration-300 hover:scale-110 active:scale-95 border-b-2 border-farm/20 hover:border-gray-900 pb-0.5"
+              className="text-farm font-bold text-sm uppercase tracking-widest hover:text-gray-900 transition-all duration-300 hover:scale-110 active:scale-95 border-b-2 border-farm/20 hover:border-gray-900 pb-0.5"
             >
               Inicia sesión aquí
             </Link>

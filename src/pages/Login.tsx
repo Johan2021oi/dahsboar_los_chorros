@@ -51,7 +51,7 @@ export default function Login() {
             <h1 className="text-[24px] font-black text-gray-900 tracking-[-0.04em] uppercase leading-none mb-2">
               Bienvenido
             </h1>
-            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-none">
+            <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest leading-none">
               Inicia sesión para gestionar tu negocio
             </p>
           </div>
@@ -65,7 +65,7 @@ export default function Login() {
             )}
 
             <div className="space-y-2 group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
+              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
                 Correo Electrónico
               </label>
               <div className="relative">
@@ -79,14 +79,14 @@ export default function Login() {
                     setEmail(e.target.value);
                     if (error) setError(null);
                   }}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="Tu correo electrónico"
                 />
               </div>
             </div>
 
             <div className="space-y-2 group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
+              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
                 Contraseña
               </label>
               <div className="relative">
@@ -99,7 +99,7 @@ export default function Login() {
                     setPassword(e.target.value);
                     if (error) setError(null);
                   }}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="••••••••"
                 />
               </div>
@@ -130,12 +130,12 @@ export default function Login() {
           </form>
 
           <footer className="mt-5 pt-5 border-t border-gray-50 flex flex-col items-center gap-3">
-            <p className="text-gray-400 font-bold text-[13px] tracking-tight">
+            <p className="text-gray-400 font-medium text-[13px] tracking-tight">
               ¿No tienes una cuenta aún?
             </p>
             <Link 
               to="/register" 
-              className="text-farm font-black text-sm uppercase tracking-widest hover:text-gray-900 transition-all duration-300 hover:scale-110 active:scale-95 border-b-2 border-farm/20 hover:border-gray-900 pb-0.5"
+              className="text-farm font-bold text-sm uppercase tracking-widest hover:text-gray-900 transition-all duration-300 hover:scale-110 active:scale-95 border-b-2 border-farm/20 hover:border-gray-900 pb-0.5"
             >
               Crea tu negocio gratis
             </Link>
