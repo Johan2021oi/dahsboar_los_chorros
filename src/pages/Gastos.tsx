@@ -463,9 +463,9 @@ export default function Gastos() {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-center justify-center p-4">
-          <div className="bg-white rounded-[3rem] w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-              <h2 className="text-xl font-black text-gray-900 uppercase tracking-tight">
+          <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in zoom-in-95 duration-200 overflow-hidden">
+            <div className="p-6 border-b border-white/20 flex justify-between items-center bg-white/40">
+              <h2 className="text-xl font-black text-gray-900">
                 {editingId ? "Editar Gasto" : "Nuevo Egreso"}
               </h2>
               <button
@@ -481,10 +481,10 @@ export default function Gastos() {
                 }}
                 className="p-2 hover:bg-gray-200 rounded-full transition-colors"
               >
-                <X size={20} className="text-gray-500" />
+                <X size={20} />
               </button>
             </div>
-            <form onSubmit={handleSave} className="p-8 space-y-8">
+            <form onSubmit={handleSave} className="p-6 space-y-8">
               <div className="space-y-1">
                 <label className="text-xs font-bold text-gray-500 uppercase ml-1">
                   Concepto / Descripción
@@ -493,7 +493,7 @@ export default function Gastos() {
                   required
                   type="text"
                   placeholder="Ej: Bulto de purina..."
-                  className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/20 font-semibold"
+                  className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/30 font-semibold"
                   value={newGasto.descripcion}
                   onChange={(e) => setNewGasto({ ...newGasto, descripcion: e.target.value })}
                 />
@@ -508,7 +508,7 @@ export default function Gastos() {
                     required
                     type="text"
                     inputMode="numeric"
-                    className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/20 font-black text-red-600"
+                    className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/30 font-semibold"
                     value={newGasto.monto ? Number(newGasto.monto).toLocaleString("es-CO") : ""}
                     onChange={(e) => {
                       const raw = e.target.value.replace(/\./g, "").replace(/[^0-9]/g, "");
@@ -522,7 +522,7 @@ export default function Gastos() {
                 <div className="space-y-1">
                   <DatePicker
                     label="Fecha"
-                    icon={<Calendar size={14} className="text-farm" />}
+                    icon={<Calendar size={14} className="text-red-500" />}
                     value={newGasto.fecha}
                     onChange={(date) => setNewGasto({ ...newGasto, fecha: date })}
                   />
@@ -538,11 +538,11 @@ export default function Gastos() {
                     <button
                       key={cat}
                       type="button"
-                      onClick={() => setNewGasto({ 
-                        ...newGasto, 
-                        categoria: newGasto.categoria === cat ? "" : cat 
+                      onClick={() => setNewGasto({
+                        ...newGasto,
+                        categoria: newGasto.categoria === cat ? "" : cat
                       })}
-                      className={`px-3 py-3 rounded-xl text-[10px] font-bold uppercase tracking-tighter transition-all border ${newGasto.categoria === cat ? "border-red-500 bg-red-50 text-red-600 shadow-sm" : "border-gray-100 text-gray-400 hover:bg-gray-50"}`}
+                      className={`px-3 py-3 rounded-xl text-[10px] font-bold uppercase tracking-tighter transition-all border ${newGasto.categoria === cat ? "bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/20" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
                     >
                       {cat}
                     </button>
@@ -560,7 +560,7 @@ export default function Gastos() {
                 </button>
                 <button
                   type="submit"
-                  className={`flex-1 px-4 py-4 ${editingId ? "bg-farm" : "bg-red-500"} text-white rounded-2xl font-black transition-all uppercase text-sm tracking-widest shadow-lg shadow-red-500/20 hover:scale-[1.02] active:scale-[0.98]`}
+                  className="flex-1 px-4 py-4 bg-red-500 text-white rounded-2xl font-black transition-all uppercase text-sm tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {editingId ? "Actualizar" : "Guardar"}
                 </button>

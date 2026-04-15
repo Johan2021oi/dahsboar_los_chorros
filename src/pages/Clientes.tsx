@@ -9,11 +9,16 @@ import {
   CheckCircle2,
   AlertCircle,
   Pencil,
+  Archive,
+  ArchiveRestore,
+  Users,
 } from "lucide-react";
-import Toast from "../components/Toast"; // Cache simple fuera del componente para persistencia instantánea
+import Toast from "../components/Toast";
+
+// Cache simple fuera del componente para persistencia instantánea
 let clientsCache: any[] | null = null;
+let archivedCache: any[] | null = null;
 export default function Clientes() {
-  const [clientes, setClientes] = useState<any[]>(clientsCache || []);
   const [loading, setLoading] = useState(!clientsCache);
   const [search, setSearch] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -21,6 +26,7 @@ export default function Clientes() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [newCliente, setNewCliente] = useState({
     nombre: "",
+    identificacion: "",
     telefono: "",
     direccion: "",
     email: "",
@@ -30,41 +36,59 @@ export default function Clientes() {
     message: string;
   } | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [confirmReactivateId, setConfirmReactivateId] = useState<string | null>(null);
+  const [confirmPermanentDeleteId, setConfirmPermanentDeleteId] = useState<string | null>(null);
+  const [showArchived, setShowArchived] = useState(false);
   const showNotification = (type: "success" | "error", message: string) => {
     setNotification({ type, message });
     setTimeout(() => setNotification(null), 3000);
   };
+  const [clientesActivos, setClientesActivos] = useState<any[]>(clientsCache || []);
+  const [clientesArchivados, setClientesArchivados] = useState<any[]>(archivedCache || []);
+
   const loadClientes = async (silent = false) => {
-    if (!silent && !clientsCache) setLoading(true);
+    if (!silent) setLoading(true);
     try {
-      // DESCARGA PARALELA ACTIVADA
-      const [clientsRes, salesRes, paymentsRes] = await Promise.all([
+      // Cargar activos y archivados en paralelo
+      const [activosRes, archivadosRes, salesRes, paymentsRes] = await Promise.all([
         (supabase.from("clientes") as any)
           .select("*")
+          .eq("activo", true)
+          .order("nombre", { ascending: true }),
+        (supabase.from("clientes") as any)
+          .select("*")
+          .eq("activo", false)
           .order("nombre", { ascending: true }),
         (supabase.from("ventas") as any).select("cliente_id, total"),
         (supabase.from("pagos") as any).select("cliente_id, monto"),
       ]);
-      if (clientsRes.error) throw clientsRes.error;
-      if (clientsRes.data) {
-        // ALGORITMO DE MAPAS O(n) - Ultra eficiente
-        const salesMap: Record<string, number> = {};
-        (salesRes.data || []).forEach((v: any) => {
-          salesMap[v.cliente_id] =
-            (salesMap[v.cliente_id] || 0) + (v.total || 0);
-        });
-        const paymentsMap: Record<string, number> = {};
-        (paymentsRes.data || []).forEach((p: any) => {
-          paymentsMap[p.cliente_id] =
-            (paymentsMap[p.cliente_id] || 0) + (p.monto || 0);
-        });
-        const clientsWithDebt = (clientsRes.data as any[]).map((c) => ({
+
+      if (activosRes.error) throw activosRes.error;
+      if (archivadosRes.error) throw archivadosRes.error;
+
+      // ALGORITMO DE MAPAS O(n) - Ultra eficiente
+      const salesMap: Record<string, number> = {};
+      (salesRes.data || []).forEach((v: any) => {
+        salesMap[v.cliente_id] = (salesMap[v.cliente_id] || 0) + (v.total || 0);
+      });
+      const paymentsMap: Record<string, number> = {};
+      (paymentsRes.data || []).forEach((p: any) => {
+        paymentsMap[p.cliente_id] = (paymentsMap[p.cliente_id] || 0) + (p.monto || 0);
+      });
+
+      const calcularDeuda = (clientes: any[]) =>
+        clientes.map((c) => ({
           ...c,
           deuda: (salesMap[c.id] || 0) - (paymentsMap[c.id] || 0),
         }));
-        setClientes(clientsWithDebt);
-        clientsCache = clientsWithDebt; // Guardar en caché
-      }
+
+      const activosConDeuda = calcularDeuda(activosRes.data || []);
+      const archivadosConDeuda = calcularDeuda(archivadosRes.data || []);
+
+      setClientesActivos(activosConDeuda);
+      setClientesArchivados(archivadosConDeuda);
+      clientsCache = activosConDeuda;
+      archivedCache = archivadosConDeuda;
     } catch (err) {
       console.error("Error cargando clientes:", err);
       showNotification("error", "Error de conexión con la base de datos");
@@ -72,14 +96,19 @@ export default function Clientes() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     loadClientes(!!clientsCache);
   }, []);
+
+  // Usar los datos según la vista seleccionada sin recargar
+  const clientes = showArchived ? clientesArchivados : clientesActivos;
   const openModal = (cliente?: any) => {
     if (cliente) {
       setEditingId(cliente.id);
       setNewCliente({
         nombre: cliente.nombre,
+        identificacion: cliente.identificacion || "",
         telefono: cliente.telefono || "",
         direccion: cliente.direccion || "",
         email: cliente.email || "",
@@ -88,6 +117,7 @@ export default function Clientes() {
       setEditingId(null);
       setNewCliente({
         nombre: "",
+        identificacion: "",
         telefono: "",
         direccion: "",
         email: "",
@@ -97,30 +127,59 @@ export default function Clientes() {
   };
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newCliente.nombre) return;
+    if (!newCliente.nombre.trim()) {
+      showNotification("error", "El nombre completo es obligatorio");
+      return;
+    }
     setIsSaving(true);
     try {
       // Limpiar payload para asegurar compatibilidad con DB
       const payload = {
         nombre: newCliente.nombre,
+        identificacion: newCliente.identificacion || null,
         telefono: newCliente.telefono || null,
         direccion: newCliente.direccion || null,
         email: newCliente.email || null,
+        activo: true,
       };
 
       if (editingId) {
-        const { error } = await (supabase.from("clientes") as any)
+        const { data, error } = await (supabase.from("clientes") as any)
           .update(payload)
-          .eq("id", editingId);
+          .eq("id", editingId)
+          .select()
+          .single();
         if (error) throw error;
+
+        // Recalcular deuda usando el mapa actual
+        const clienteActualizado = { 
+          ...data, 
+          deuda: (salesMap[editingId] || 0) - (paymentsMap[editingId] || 0) 
+        };
+        
+        setClientesActivos((prev) =>
+          prev.map((c) => (c.id === editingId ? clienteActualizado : c))
+        );
+        clientsCache = clientsCache?.map((c) =>
+          c.id === editingId ? clienteActualizado : c
+        ) || null;
       } else {
-        const { error } = await (supabase.from("clientes") as any).insert([
-          payload,
-        ]);
+        const { data, error } = await (supabase.from("clientes") as any)
+          .insert([payload])
+          .select()
+          .single();
         if (error) throw error;
+
+        // Nuevo cliente siempre inicia con deuda 0 hasta que tenga ventas
+        const nuevoCliente = { ...data, deuda: 0 };
+        setClientesActivos((prev) =>
+          [...prev, nuevoCliente].sort((a, b) => a.nombre.localeCompare(b.nombre))
+        );
+        clientsCache = [...(clientsCache || []), nuevoCliente].sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        );
       }
       setIsModalOpen(false);
-      await loadClientes();
       showNotification(
         "success",
         editingId ? "Cliente actualizado" : "Cliente guardado correctamente",
@@ -136,21 +195,120 @@ export default function Clientes() {
     }
   };
   const handleDelete = async (id: string) => {
+    const cliente = clientesActivos.find((c) => c.id === id);
+    if (!cliente) return;
+
+    // Solo permitir eliminar si la deuda es 0 (cliente saldado)
+    if (cliente.deuda > 0) {
+      showNotification(
+        "error",
+        "No se puede archivar: el cliente tiene deuda pendiente.",
+      );
+      setConfirmDeleteId(null);
+      return;
+    }
+
     try {
+      // Soft delete: marcar como inactivo
       const { error } = await (supabase.from("clientes") as any)
-        .delete()
+        .update({ activo: false })
         .eq("id", id);
       if (error) throw error;
+
       setConfirmDeleteId(null);
-      showNotification("success", "Cliente eliminado correctamente");
-      await loadClientes();
+      showNotification("success", "Cliente archivado correctamente");
+
+      // Actualizar estado local sin recargar
+      const clienteArchivado = { ...cliente, activo: false };
+      setClientesActivos((prev) => prev.filter((c) => c.id !== id));
+      setClientesArchivados((prev) => [...prev, clienteArchivado].sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      ));
+      clientsCache = clientsCache?.filter((c) => c.id !== id) || null;
+      archivedCache = [...(archivedCache || []), clienteArchivado].sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
     } catch (err) {
       console.error(err);
       showNotification(
         "error",
-        "No se pudo eliminar el cliente. Es posible que tenga ventas registradas.",
+        "Error al archivar el cliente. Inténtelo nuevamente.",
       );
       setConfirmDeleteId(null);
+    }
+  };
+
+  const handleReactivate = async (id: string) => {
+    const cliente = clientesArchivados.find((c) => c.id === id);
+    if (!cliente) return;
+
+    try {
+      // Reactivar: marcar como activo
+      const { error } = await (supabase.from("clientes") as any)
+        .update({ activo: true })
+        .eq("id", id);
+      if (error) throw error;
+
+      setConfirmReactivateId(null);
+      showNotification("success", "Cliente reactivado correctamente");
+
+      // Actualizar estado local sin recargar
+      const clienteReactivado = { ...cliente, activo: true };
+      setClientesArchivados((prev) => prev.filter((c) => c.id !== id));
+      setClientesActivos((prev) => [...prev, clienteReactivado].sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      ));
+      archivedCache = archivedCache?.filter((c) => c.id !== id) || null;
+      clientsCache = [...(clientsCache || []), clienteReactivado].sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
+    } catch (err) {
+      console.error(err);
+      showNotification(
+        "error",
+        "Error al reactivar el cliente. Inténtelo nuevamente.",
+      );
+      setConfirmReactivateId(null);
+    }
+  };
+
+  const handlePermanentDelete = async (id: string) => {
+    try {
+      // Primero desvincular ventas y pagos (poner cliente_id en NULL)
+      await (supabase.from("ventas") as any)
+        .update({ cliente_id: null })
+        .eq("cliente_id", id);
+
+      await (supabase.from("pagos") as any)
+        .update({ cliente_id: null })
+        .eq("cliente_id", id);
+
+      // Ahora eliminar el cliente permanentemente
+      const { error } = await (supabase.from("clientes") as any)
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
+
+      setConfirmPermanentDeleteId(null);
+      showNotification("success", "Cliente eliminado permanentemente");
+
+      // Actualizar estado local sin recargar
+      setClientesArchivados((prev) => prev.filter((c) => c.id !== id));
+      archivedCache = archivedCache?.filter((c) => c.id !== id) || null;
+    } catch (err: any) {
+      console.error(err);
+      if (err.message?.includes("foreign key") || err.code === "23503") {
+        showNotification(
+          "error",
+          "No se puede eliminar: el cliente aún tiene registros vinculados.",
+        );
+      } else {
+        showNotification(
+          "error",
+          "Error al eliminar el cliente. Inténtelo nuevamente.",
+        );
+      }
+      setConfirmPermanentDeleteId(null);
     }
   };
   const openWhatsApp = (tel: string) => {
@@ -173,11 +331,14 @@ export default function Clientes() {
   return (
     <div
       className="max-w-7xl mx-auto pb-12 space-y-8"
-      onClick={() => confirmDeleteId && setConfirmDeleteId(null)}
+      onClick={() => {
+        if (confirmDeleteId) setConfirmDeleteId(null);
+        if (confirmReactivateId) setConfirmReactivateId(null);
+        if (confirmPermanentDeleteId) setConfirmPermanentDeleteId(null);
+      }}
     >
       {" "}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 mb-8">
-        {" "}
         <div>
           <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
             GESTIÓN DE CLIENTES
@@ -185,14 +346,37 @@ export default function Clientes() {
           <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
             ADMINISTRA TU CARTERA Y CONTACTOS ESTRATÉGICOS
           </p>
-        </div>{" "}
-        <button
-          onClick={() => openModal()}
-          className="bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-farm/20 hover:scale-[1.02] active:scale-[0.98]"
-        >
-          {" "}
-          <Plus size={20} /> Nuevo Cliente{" "}
-        </button>{" "}
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowArchived(!showArchived)}
+            className={`px-4 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${
+              showArchived
+                ? "bg-amber-500 text-white hover:bg-amber-600 shadow-lg shadow-amber/20"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            }`}
+          >
+            {showArchived ? (
+              <>
+                <Users size={18} />
+                <span className="text-sm">Ver Activos</span>
+              </>
+            ) : (
+              <>
+                <Archive size={18} />
+                <span className="text-sm">Ver Archivados</span>
+              </>
+            )}
+          </button>
+          {!showArchived && (
+            <button
+              onClick={() => openModal()}
+              className="bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-farm/20 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Plus size={20} /> Nuevo Cliente
+            </button>
+          )}
+        </div>
       </div>{" "}
       <div className="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
         {" "}
@@ -218,7 +402,16 @@ export default function Clientes() {
               {" "}
               <tr className="bg-gray-50/80 text-gray-400 text-[10px] font-black uppercase tracking-widest border-b sticky top-0 z-10">
                 {" "}
-                <th className="px-10 py-5 w-[30%] whitespace-nowrap">Cliente / Info</th>{" "}
+                <th className="px-10 py-5 w-[30%] whitespace-nowrap">
+                  Cliente / Info
+                  <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] ${
+                    showArchived
+                      ? "text-amber-600 bg-amber-100"
+                      : "text-farm bg-farm/10"
+                  }`}>
+                    {clientes.length}
+                  </span>
+                </th>{" "}
                 <th className="px-10 py-5 w-[35%] whitespace-nowrap">Contacto</th>{" "}
                 <th className="px-10 py-5 text-right w-[20%] whitespace-nowrap">Saldo Deuda</th>{" "}
                 <th className="px-6 py-5 text-right w-[15%] whitespace-nowrap">Acciones</th>
@@ -312,39 +505,124 @@ export default function Clientes() {
                         >
                           <Pencil size={14} />
                         </button>
-                        {confirmDeleteId === c.id ? (
-                          <div className="flex gap-1 items-center animate-in fade-in zoom-in duration-200 w-[85px] justify-end">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setConfirmDeleteId(null);
-                              }}
-                              className="text-[8px] font-semibold text-gray-400 hover:text-gray-600 px-2 py-1 rounded-lg bg-gray-50 border border-gray-100 transition-all font-sans"
-                            >
-                              No
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete(c.id);
-                              }}
-                              className="text-[8px] font-black text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded-lg shadow-lg shadow-red-500/20 transition-all font-sans"
-                            >
-                              Sí
-                            </button>
+                        {showArchived ? (
+                          // Clientes archivados - botones de reactivar y eliminar
+                          <div className="flex items-center justify-end gap-1 w-full">
+                            {confirmReactivateId === c.id ? (
+                              <div className="flex gap-1 items-center animate-in fade-in zoom-in duration-200">
+                                <span className="text-[8px] text-gray-400 mr-1">¿Reactivar?</span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setConfirmReactivateId(null);
+                                  }}
+                                  className="text-[8px] font-semibold text-gray-400 hover:text-gray-600 px-2 py-1 rounded-lg bg-gray-50 border border-gray-100 transition-all font-sans"
+                                >
+                                  No
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleReactivate(c.id);
+                                  }}
+                                  className="text-[8px] font-black text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded-lg shadow-lg shadow-green-500/20 transition-all font-sans"
+                                >
+                                  Sí
+                                </button>
+                              </div>
+                            ) : confirmPermanentDeleteId === c.id ? (
+                              <div className="flex gap-1 items-center animate-in fade-in zoom-in duration-200">
+                                <span className="text-[8px] text-red-500 mr-1">¿Eliminar?</span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setConfirmPermanentDeleteId(null);
+                                  }}
+                                  className="text-[8px] font-semibold text-gray-400 hover:text-gray-600 px-2 py-1 rounded-lg bg-gray-50 border border-gray-100 transition-all font-sans"
+                                >
+                                  No
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handlePermanentDelete(c.id);
+                                  }}
+                                  className="text-[8px] font-black text-white bg-red-600 hover:bg-red-700 px-2 py-1 rounded-lg shadow-lg shadow-red-600/20 transition-all font-sans"
+                                >
+                                  Sí
+                                </button>
+                              </div>
+                            ) : (
+                              <>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setConfirmReactivateId(c.id);
+                                  }}
+                                  className="p-1.5 text-green-500 hover:text-green-700 hover:bg-green-50 rounded-xl transition-all"
+                                  title="Reactivar cliente"
+                                >
+                                  <ArchiveRestore size={16} />
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setConfirmPermanentDeleteId(c.id);
+                                  }}
+                                  className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-xl transition-all"
+                                  title="Eliminar permanentemente"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              </>
+                            )}
                           </div>
+                        ) : c.deuda === 0 ? (
+                          // Clientes activos saldados - botón de archivar
+                          confirmDeleteId === c.id ? (
+                            <div className="flex gap-1 items-center animate-in fade-in zoom-in duration-200 w-[85px] justify-end">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setConfirmDeleteId(null);
+                                }}
+                                className="text-[8px] font-semibold text-gray-400 hover:text-gray-600 px-2 py-1 rounded-lg bg-gray-50 border border-gray-100 transition-all font-sans"
+                              >
+                                No
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDelete(c.id);
+                                }}
+                                className="text-[8px] font-black text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded-lg shadow-lg shadow-red-500/20 transition-all font-sans"
+                              >
+                                  Sí
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="w-[85px] flex justify-end">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setConfirmDeleteId(c.id);
+                                }}
+                                className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all opacity-60 hover:opacity-100"
+                                title="Archivar cliente saldado"
+                              >
+                                <Trash2 size={14} />
+                              </button>
+                            </div>
+                          )
                         ) : (
+                          // Clientes con deuda - no se pueden archivar
                           <div className="w-[85px] flex justify-end">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setConfirmDeleteId(c.id);
-                              }}
-                              className="p-1.5 text-red-200 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all opacity-40 hover:opacity-100"
-                              title="Eliminar"
+                            <span
+                              className="text-[9px] text-gray-300 font-medium"
+                              title="Tiene deuda pendiente"
                             >
-                              <Trash2 size={14} />
-                            </button>
+                              Activo
+                            </span>
                           </div>
                         )}
                       </div>
@@ -353,13 +631,13 @@ export default function Clientes() {
                 ))
               ) : (
                 <tr>
-                  {" "}
                   <td colSpan={4} className="px-6 py-12 text-center">
-                    {" "}
                     <div className="text-gray-400 font-medium">
-                      No se encontraron clientes para mostrar.
-                    </div>{" "}
-                  </td>{" "}
+                      {showArchived
+                        ? "No hay clientes archivados."
+                        : "No se encontraron clientes para mostrar."}
+                    </div>
+                  </td>
                 </tr>
               )}{" "}
             </tbody>{" "}
@@ -386,29 +664,39 @@ export default function Clientes() {
               </button>{" "}
             </div>{" "}
             <form onSubmit={handleSave} className="p-6 space-y-8">
-                           <div className="grid grid-cols-1">
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-gray-500 uppercase ml-1">
+                  Nombre Completo
+                </label>
+                <input
+                  type="text"
+                  className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-farm/30 font-semibold"
+                  value={newCliente.nombre}
+                  onChange={(e) =>
+                    setNewCliente({ ...newCliente, nombre: e.target.value })
+                  }
+                  placeholder="Ej: Juan Pérez García"
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">
-                    Nombre Completo *
+                    Identificación (CC)
                   </label>
                   <input
-                    required
                     type="text"
                     className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-farm/30 font-semibold"
-                    value={newCliente.nombre}
+                    value={newCliente.identificacion}
                     onChange={(e) =>
-                      setNewCliente({ ...newCliente, nombre: e.target.value })
+                      setNewCliente({ ...newCliente, identificacion: e.target.value })
                     }
                   />
                 </div>
-              </div>
-              <div className="grid grid-cols-1 gap-6">
-                {" "}
                 <div className="space-y-1">
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">
                     WhatsApp / Teléfono
-                  </label>{" "}
+                  </label>
                   <input
                     type="text"
                     className="w-full border-gray-200 border rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-farm/30 font-semibold"
@@ -416,8 +704,8 @@ export default function Clientes() {
                     onChange={(e) =>
                       setNewCliente({ ...newCliente, telefono: e.target.value })
                     }
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
               </div>{" "}
               <div className="space-y-1">
                 {" "}

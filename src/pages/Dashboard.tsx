@@ -95,35 +95,45 @@ export default function Dashboard() {
 
       // Carga paralela ultra-rápida
       const [
-        vRes, 
-        gRes, 
-        hVRes, 
-        hPRes, 
-        cRes, 
-        iRes, 
-        invRes
+        vRes,
+        gRes,
+        pRes,
+        cRes,
+        iRes,
+        invRes,
+        resVHistoricos,
+        resPHistoricos
       ] = await Promise.all([
         (supabase.from("ventas") as any).select("total, created_at").gte("created_at", startIso).lte("created_at", endIso),
         (supabase.from("gastos") as any).select("monto").gte("fecha", startStr).lte("fecha", endStr),
-        (supabase.from("ventas") as any).select("total"),
-        (supabase.from("pagos") as any).select("monto"),
+        (supabase.from("pagos") as any).select("monto").gte("fecha", startStr).lte("fecha", endStr),
         (supabase.from("clientes") as any).select("*", { count: "exact", head: true }),
         (supabase.from("detalle_venta") as any).select("producto, cantidad, precio, ventas!inner(created_at)").gte("ventas.created_at", startIso).lte("ventas.created_at", endIso),
-        (supabase.from("inventario") as any).select("cantidad")
+        (supabase.from("inventario") as any).select("cantidad"),
+        (supabase.from("ventas") as any).select("total"),
+        (supabase.from("pagos") as any).select("monto")
       ]);
 
       const vData = vRes.data || [];
       const gData = gRes.data || [];
-      const histV = hVRes.data || [];
-      const histP = hPRes.data || [];
       const items = iRes.data || [];
       const currentInv = invRes.data || [];
+      const pData = pRes.data || [];
+      const allSales = (resVHistoricos.data as any[]) || [];
+      const allPayments = (resPHistoricos.data as any[]) || [];
 
-      const totalVentas = vData.reduce((s: any, v: any) => s + (v.total || 0), 0);
-      const totalGastos = gData.reduce((s: any, g: any) => s + (g.monto || 0), 0);
+      const totalVentas = vData.reduce((s: any, v: any) => s + (Number(v.total) || 0), 0);
+      const totalGastos = gData.reduce((s: any, g: any) => s + (Number(g.monto) || 0), 0);
+      const totalPagosPeriodo = pData.reduce((s: any, p: any) => s + (Number(p.monto) || 0), 0);
+
+      // Cuentas por cobrar = DEUDA TOTAL ABSOLUTA (Cálculo Ultra-Seguro)
+      const { data: hSales } = await (supabase.from("ventas") as any).select("total");
+      const { data: hPayments } = await (supabase.from("pagos") as any).select("monto");
       
-      const porCobrar = (histV.reduce((s: any, v: any) => s + (v.total || 0), 0)) - 
-                         (histP.reduce((s: any, p: any) => s + (p.monto || 0), 0));
+      const tVH = (hSales || []).reduce((acc: number, v: any) => acc + (Number(v.total) || 0), 0);
+      const tPH = (hPayments || []).reduce((acc: number, p: any) => acc + (Number(p.monto) || 0), 0);
+      
+      const porCobrar = Math.max(0, tVH - tPH);
 
       setStats({
         ventas: totalVentas,
@@ -298,9 +308,9 @@ export default function Dashboard() {
           },
           {
             label: "egresos (gastos)",
-            value: formatCurrency(stats.gastos),
+            value: `-${formatCurrency(stats.gastos)}`,
             icon: CreditCard,
-            color: "red-500",
+            color: "red-600",
             trend: "-5%",
             up: false,
           },
@@ -328,7 +338,7 @@ export default function Dashboard() {
             ></div>{" "}
             <div className="relative flex flex-col h-full justify-between">
               {" "}
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-center mb-1">
                 {" "}
                 <div
                   className={`p-3 rounded-2xl bg-${s.color}/10 text-${s.color} shadow-inner`}
@@ -356,7 +366,7 @@ export default function Dashboard() {
                   {s.label}
                 </p>{" "}
                 <h3
-                  className={`text-xl font-black tracking-tight ${s.isNet ? (stats.utilidad < 0 ? "text-red-600" : "text-blue-600") : "text-gray-900"}`}
+                  className={`text-xl font-black tracking-tight ${s.isNet ? (stats.utilidad < 0 ? "text-red-600" : "text-blue-600") : (s.color === "red-600" ? "text-red-600" : "text-gray-900")}`}
                 >
                   {s.value}
                 </h3>{" "}
