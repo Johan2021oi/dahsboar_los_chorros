@@ -81,7 +81,8 @@ export default function Layout() {
           `}
         >
           {/* Brand Header */}
-          <div className="h-24 flex items-center gap-5 px-8 mb-6 shrink-0 group">
+          {/* Brand Header - Hidden on Mobile */}
+          <div className="hidden lg:flex h-24 items-center gap-5 px-8 mb-6 shrink-0 group">
             <div className="w-14 h-14 bg-gray-900 rounded-[1.75rem] flex items-center justify-center text-farm font-black shadow-2xl shadow-gray-900/20 shrink-0 uppercase tracking-tighter overflow-hidden transform transition-transform group-hover:rotate-3 duration-500 border-2 border-white/10">
               {branding?.logoImage ? (
                 <img
@@ -170,7 +171,7 @@ export default function Layout() {
               )}
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-xs text-gray-900 uppercase tracking-tight leading-none">
+              <span className="font-black text-sm text-gray-900 uppercase tracking-tight leading-none">
                 Busi | Tu negocio inteligente
               </span>
               <span className="text-[8px] font-bold text-farm uppercase tracking-widest mt-0.5">
