@@ -79,10 +79,6 @@ export default function Register() {
               </div>
             )}
 
-            <div className="space-y-1 group">
-              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
-                Nombre del Negocio
-              </label>
               <div className="relative">
                 <Store className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
                 <input
@@ -91,16 +87,12 @@ export default function Register() {
                   required
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
-                  placeholder="Ej: Granja Los Chorros"
+                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                  placeholder="Nombre del Negocio"
                 />
               </div>
             </div>
 
-            <div className="space-y-1 group">
-              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
-                Correo Electrónico
-              </label>
               <div className="relative">
                 <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
                 <input
@@ -108,16 +100,12 @@ export default function Register() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
-                  placeholder="ejemplo@correo.com"
+                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                  placeholder="Correo Electrónico"
                 />
               </div>
             </div>
 
-            <div className="space-y-1 group">
-              <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] ml-2 block transition-colors group-focus-within:text-farm">
-                Contraseña
-              </label>
               <div className="relative">
                 <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
                 <input
@@ -126,8 +114,8 @@ export default function Register() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-16 pr-6 py-3 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-200 text-sm"
-                  placeholder="Mínimo 6 caracteres"
+                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                  placeholder="Contraseña (Mínimo 6)"
                 />
               </div>
             </div>
