@@ -200,7 +200,7 @@ export default function Gastos() {
     >
 
       {/* Header General */}
-      <div className="hidden lg:flex flex-row items-center justify-between gap-6 px-0">
+      <div className="hidden lg:flex flex-row items-center justify-between gap-6 px-0 mb-4">
         <div>
           <h1 className="text-lg font-bold text-gray-900 tracking-tight uppercase text-left">
             Gestión de Egresos
@@ -209,12 +209,19 @@ export default function Gastos() {
             REGISTRA Y CONTROLA LAS SALIDAS DE DINERO
           </p>
         </div>
-      </div>
-      
-      <div className="flex flex-col lg:flex-row lg:items-center justify-end gap-6 px-4 lg:px-0 lg:mt-[-72px]">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="w-full lg:w-auto bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 uppercase tracking-wide whitespace-nowrap"
+          className="bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 uppercase tracking-wide whitespace-nowrap"
+        >
+          <Plus size={18} /> <span className="text-xs">REGISTRAR GASTO</span>
+        </button>
+      </div>
+      
+      {/* Mobile Action Button */}
+      <div className="flex lg:hidden flex-col items-center justify-center gap-6 px-4 mb-4">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="w-full bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 uppercase tracking-wide whitespace-nowrap"
         >
           <Plus size={18} /> <span className="text-xs">REGISTRAR GASTO</span>
         </button>
