@@ -5,7 +5,7 @@
 @layer base {
   html, body, #root {
     @apply h-full m-0 p-0 overflow-hidden;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Outfit', sans-serif;
   }
   body {
     @apply bg-gray-50 text-gray-900 antialiased;

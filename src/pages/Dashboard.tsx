@@ -442,7 +442,7 @@ export default function Dashboard() {
                     borderRadius: "1.5rem",
                     border: "none",
                     boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)",
-                    fontFamily: "Montserrat",
+                    fontFamily: "Outfit",
                   }}
                   formatter={(v: any) => [formatCurrency(v), "Venta"]}
                 />{" "}
