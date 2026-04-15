@@ -62,7 +62,32 @@ export function useBranding() {
 
     const updated = { ...branding, ...newBranding };
     
-    // Guardar en Supabase
+    // Comprimir imagen si es base64 y es muy grande (>500KB)
+    let logoToSave = updated.logoImage;
+    if (logoToSave && logoToSave.startsWith('data:') && logoToSave.length > 500000) {
+      try {
+        const img = new Image();
+        const canvas = document.createElement('canvas');
+        await new Promise<void>((resolve) => {
+          img.onload = () => {
+            const MAX = 256;
+            let w = img.width, h = img.height;
+            if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+            else { w = Math.round(w * MAX / h); h = MAX; }
+            canvas.width = w;
+            canvas.height = h;
+            canvas.getContext('2d')!.drawImage(img, 0, 0, w, h);
+            logoToSave = canvas.toDataURL('image/webp', 0.7);
+            resolve();
+          };
+          img.src = logoToSave!;
+        });
+      } catch (e) {
+        console.error('Error comprimiendo logo:', e);
+      }
+    }
+
+    // Guardar en Supabase con onConflict para que funcione el upsert
     const { error } = await supabase
       .from('branding')
       .upsert({
@@ -70,14 +95,16 @@ export function useBranding() {
         app_name: updated.appName,
         logo_text: updated.logoText,
         subtitle: updated.subtitle,
-        logo_image: updated.logoImage,
+        logo_image: logoToSave,
         phone: updated.phone,
         address: updated.address,
         email: updated.email,
-      } as any);
+      } as any, { onConflict: 'user_id' });
 
     if (!error) {
-      setBranding(updated);
+      setBranding({ ...updated, logoImage: logoToSave });
+    } else {
+      console.error('Error guardando branding:', error);
     }
   };
 
