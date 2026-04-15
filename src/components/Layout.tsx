@@ -75,10 +75,9 @@ export default function Layout() {
           onClick={() => setSidebarOpen(false)}
         />
 
-        {/* Sidebar Premium */}
         <div
           className={` 
-            fixed lg:static inset-y-0 left-0 w-72 bg-white transform transition-all duration-500 ease-in-out z-[999] flex flex-col 
+            fixed lg:static inset-y-0 left-0 w-72 min-w-[288px] max-w-[288px] bg-white transform transition-all duration-500 ease-in-out z-[999] flex flex-col 
             border-r border-gray-100 shadow-2xl lg:shadow-none
             ${isElectron ? "pt-12" : "pt-4"} 
             ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
@@ -113,7 +112,7 @@ export default function Layout() {
 
           {/* Navigation Area */}
           <div className="flex-1 px-4 overflow-y-auto custom-scrollbar-premium">
-            <nav className="space-y-2 animate-in fade-in slide-in-from-left-4 duration-1000">
+            <nav className="space-y-2">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.path;
                 return (
@@ -199,8 +198,8 @@ export default function Layout() {
         </div>
 
         {/* Main Content Area */}
-        <main className={`flex-1 w-full flex flex-col bg-white ${isElectron ? "pt-8" : "pt-24 lg:pt-0"}`}>
-          <div className="flex-1 p-3 lg:p-14 lg:pt-10 overflow-y-auto custom-scrollbar-premium animate-in fade-in duration-1000">
+        <main className={`flex-1 w-full flex flex-col bg-white overflow-y-scroll ${isElectron ? "pt-8" : "pt-24 lg:pt-0"}`}>
+          <div className="flex-1 p-3 lg:p-14 lg:pt-10 custom-scrollbar-premium">
             <Outlet />
           </div>
         </main>
