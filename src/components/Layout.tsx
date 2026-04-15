@@ -50,7 +50,7 @@ export default function Layout() {
   };
 
   return (
-    <div className="h-screen relative overflow-hidden bg-gray-50/50">
+    <div className="h-screen relative overflow-hidden bg-white">
       <TitleBar />
       <div className="h-full flex overflow-hidden">
         
@@ -90,7 +90,7 @@ export default function Layout() {
             onClick={() => setSettingsOpen(true)}
             className="hidden lg:flex h-24 items-center gap-5 px-8 mb-6 shrink-0 group hover:bg-gray-50/50 transition-colors w-full text-left"
           >
-            <div className="w-14 h-14 bg-gray-900 rounded-[1.75rem] flex items-center justify-center text-farm font-black shadow-2xl shadow-gray-900/20 shrink-0 uppercase tracking-tighter overflow-hidden transform transition-transform group-hover:rotate-3 duration-500 border-2 border-white/10">
+            <div className="w-14 h-14 bg-white rounded-[1.75rem] flex items-center justify-center text-farm font-black shadow-xl shadow-gray-200/50 shrink-0 uppercase tracking-tighter overflow-hidden transform transition-transform group-hover:rotate-3 duration-500 border border-gray-100">
               {branding?.logoImage ? (
                 <img
                   src={branding.logoImage}
@@ -173,7 +173,7 @@ export default function Layout() {
             onClick={() => setSettingsOpen(true)}
             className="flex items-center gap-3 active:scale-95 transition-transform text-left"
           >
-            <div className="w-9 h-9 bg-gray-900 rounded-xl flex items-center justify-center text-farm overflow-hidden shadow-lg shadow-gray-900/20">
+            <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-farm overflow-hidden shadow-md border border-gray-100">
                {branding?.logoImage ? (
                 <img src={branding.logoImage} alt="Logo" className="w-full h-full object-cover p-1" />
               ) : (
@@ -199,7 +199,7 @@ export default function Layout() {
         </div>
 
         {/* Main Content Area */}
-        <main className={`flex-1 w-full flex flex-col bg-gray-50/50 ${isElectron ? "pt-8" : "pt-24 lg:pt-0"}`}>
+        <main className={`flex-1 w-full flex flex-col bg-white ${isElectron ? "pt-8" : "pt-24 lg:pt-0"}`}>
           <div className="flex-1 p-3 lg:p-14 lg:pt-10 overflow-y-auto custom-scrollbar-premium animate-in fade-in duration-1000">
             <Outlet />
           </div>
