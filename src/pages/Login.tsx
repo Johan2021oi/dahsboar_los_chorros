@@ -37,18 +37,18 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gray-50/30 flex items-center justify-center p-6 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px]">
       <div className="w-full max-w-[440px] animate-in fade-in zoom-in-95 duration-700">
-        <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.06)] p-10 lg:p-14 relative overflow-hidden">
+        <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.06)] p-8 lg:p-10 relative overflow-hidden">
           
           {/* Subtle Accent Line */}
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-farm/5" />
 
           {/* Icon Container - Premium Circle */}
-          <div className="w-20 h-20 bg-gray-900 rounded-[2rem] flex items-center justify-center mb-10 shadow-2xl shadow-gray-900/20 mx-auto transform transition-transform hover:scale-105 duration-500">
+          <div className="w-16 h-16 bg-gray-900 rounded-[1.5rem] flex items-center justify-center mb-6 shadow-2xl shadow-gray-900/20 mx-auto transform transition-transform hover:scale-105 duration-500">
             <LogIn className="text-farm w-10 h-10" />
           </div>
 
-          <div className="text-center mb-12">
-            <h1 className="text-[38px] font-black text-gray-900 tracking-[-0.04em] uppercase leading-none mb-4">
+          <div className="text-center mb-8">
+            <h1 className="text-[32px] font-black text-gray-900 tracking-[-0.04em] uppercase leading-none mb-4">
               Bienvenido
             </h1>
             <p className="text-[13px] font-bold text-gray-400 uppercase tracking-widest leading-none">
@@ -79,7 +79,7 @@ export default function Login() {
                     setEmail(e.target.value);
                     if (error) setError(null);
                   }}
-                  className="w-full pl-16 pr-6 py-5 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="Tu correo electrónico"
                 />
               </div>
@@ -99,7 +99,7 @@ export default function Login() {
                     setPassword(e.target.value);
                     if (error) setError(null);
                   }}
-                  className="w-full pl-16 pr-6 py-5 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
+                  className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-bold text-gray-900 placeholder:text-gray-200 text-sm"
                   placeholder="••••••••"
                 />
               </div>
@@ -108,7 +108,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gray-900 text-white font-black py-5 rounded-[1.5rem] shadow-2xl shadow-gray-900/10 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-3 group disabled:opacity-70 mt-4 overflow-hidden relative"
+              className="w-full bg-gray-900 text-white font-black py-4 rounded-[1.5rem] shadow-2xl shadow-gray-900/10 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-3 group disabled:opacity-70 mt-4 overflow-hidden relative"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -129,7 +129,7 @@ export default function Login() {
             </button>
           </form>
 
-          <footer className="mt-14 pt-8 border-t border-gray-50 flex flex-col items-center gap-4">
+          <footer className="mt-8 pt-8 border-t border-gray-50 flex flex-col items-center gap-4">
             <p className="text-gray-400 font-bold text-[13px] tracking-tight">
               ¿No tienes una cuenta aún?
             </p>
