@@ -199,7 +199,7 @@ export default function Layout() {
 
         {/* Main Content Area */}
         <main className={`flex-1 w-full flex flex-col bg-white overflow-y-scroll ${isElectron ? "pt-8" : "pt-24 lg:pt-0"}`}>
-          <div className="flex-1 p-3 lg:p-14 lg:pt-10 custom-scrollbar-premium">
+          <div className="flex-1 p-3 lg:p-8 lg:pt-8 custom-scrollbar-premium">
             <Outlet />
           </div>
         </main>

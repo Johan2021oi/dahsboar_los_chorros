@@ -255,7 +255,7 @@ export default function Pagos() {
   return (
     <>
     <div
-      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 pb-20 px-0 lg:px-4"
+      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 pb-20 px-0 lg:px-4"
       onClick={() => confirmDeleteId && setConfirmDeleteId(null)}
     >
       {" "}
@@ -272,7 +272,7 @@ export default function Pagos() {
             </p>
           </div>{" "}
         </div>{" "}
-        <div className="bg-white p-6 lg:p-10 rounded-[2rem] lg:rounded-[3rem] shadow-xl border border-white/20">
+        <div className="bg-white p-6 lg:p-7 rounded-[2rem] lg:rounded-[2.5rem] shadow-xl border border-white/20">
           {" "}
           <form onSubmit={handleSubmit} className="space-y-8 lg:space-y-10">
             {" "}

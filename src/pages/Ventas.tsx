@@ -425,7 +425,7 @@ link.click();
   return (
     <>
     <div
-      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 pb-20 px-0 lg:px-4"
+      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 pb-20 px-0 lg:px-4"
       onClick={() => {
         setActiveDropdownId(null);
         if (confirmDeleteId) setConfirmDeleteId(null);
@@ -449,7 +449,7 @@ link.click();
           </div>
         </div>
 
-        <div className="bg-white p-4 lg:p-10 rounded-[1.5rem] lg:rounded-[3rem] shadow-2xl border border-white/20 relative flex flex-col h-fit">
+        <div className="bg-white p-4 lg:p-7 rounded-[1.5rem] lg:rounded-[2.5rem] shadow-2xl border border-white/20 relative flex flex-col h-fit">
           <div className="flex-1 -mx-1 px-1 pr-3">
             <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-10 pb-2">
               <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-4 lg:gap-8 items-start">
