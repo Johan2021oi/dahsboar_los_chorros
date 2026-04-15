@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
@@ -14,7 +14,7 @@ import Register from './pages/Register';
 function App() {
   return (
     <AuthProvider>
-      <HashRouter>
+      <Router>
         <Routes>
           {/* Rutas Públicas */}
           <Route path="/login" element={<Login />} />
@@ -37,7 +37,7 @@ function App() {
           {/* Redirección por defecto */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </HashRouter>
+      </Router>
     </AuthProvider>
   );
 }
