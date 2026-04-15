@@ -11,7 +11,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
-    title: "Busi App",
+    title: "Busi | Tu negocio inteligente",
     backgroundColor: '#f9fafb',
     icon: path.join(__dirname, '../build/icon.ico'),
     titleBarStyle: 'hidden', // Add this
