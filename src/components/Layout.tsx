@@ -7,10 +7,12 @@ import {
   Box,
   ReceiptText,
   Settings,
+  LogIn,
 } from "lucide-react";
 import { useState } from "react";
 import TitleBar from "./TitleBar";
 import { useBranding } from "../hooks/useBranding";
+import { useAuth } from "../context/AuthContext";
 import BrandingModal from "./BrandingModal";
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

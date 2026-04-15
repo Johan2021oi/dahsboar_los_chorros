@@ -32,7 +32,7 @@ export function useBranding() {
       const { data, error } = await supabase
         .from('branding')
         .select('*')
-        .single();
+        .single() as any;
 
       if (data && !error) {
         setBranding({
@@ -74,7 +74,7 @@ export function useBranding() {
         phone: updated.phone,
         address: updated.address,
         email: updated.email,
-      });
+      } as any);
 
     if (!error) {
       setBranding(updated);

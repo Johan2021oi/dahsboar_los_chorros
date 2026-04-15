@@ -6,8 +6,6 @@ import {
   Trash2,
   ExternalLink,
   X,
-  CheckCircle2,
-  AlertCircle,
   Pencil,
   Archive,
   ArchiveRestore,
@@ -45,6 +43,8 @@ export default function Clientes() {
   };
   const [clientesActivos, setClientesActivos] = useState<any[]>(clientsCache || []);
   const [clientesArchivados, setClientesArchivados] = useState<any[]>(archivedCache || []);
+  const [salesMap, setSalesMap] = useState<Record<string, number>>({});
+  const [paymentsMap, setPaymentsMap] = useState<Record<string, number>>({});
 
   const loadClientes = async (silent = false) => {
     if (!silent) setLoading(true);
@@ -67,19 +67,22 @@ export default function Clientes() {
       if (archivadosRes.error) throw archivadosRes.error;
 
       // ALGORITMO DE MAPAS O(n) - Ultra eficiente
-      const salesMap: Record<string, number> = {};
+      const sMap: Record<string, number> = {};
       (salesRes.data || []).forEach((v: any) => {
-        salesMap[v.cliente_id] = (salesMap[v.cliente_id] || 0) + (v.total || 0);
+        sMap[v.cliente_id] = (sMap[v.cliente_id] || 0) + (v.total || 0);
       });
-      const paymentsMap: Record<string, number> = {};
+      const pMap: Record<string, number> = {};
       (paymentsRes.data || []).forEach((p: any) => {
-        paymentsMap[p.cliente_id] = (paymentsMap[p.cliente_id] || 0) + (p.monto || 0);
+        pMap[p.cliente_id] = (pMap[p.cliente_id] || 0) + (p.monto || 0);
       });
+
+      setSalesMap(sMap);
+      setPaymentsMap(pMap);
 
       const calcularDeuda = (clientes: any[]) =>
         clientes.map((c) => ({
           ...c,
-          deuda: (salesMap[c.id] || 0) - (paymentsMap[c.id] || 0),
+          deuda: (sMap[c.id] || 0) - (pMap[c.id] || 0),
         }));
 
       const activosConDeuda = calcularDeuda(activosRes.data || []);
