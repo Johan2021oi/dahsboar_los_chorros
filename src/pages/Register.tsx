@@ -145,7 +145,7 @@ export default function Register() {
             </p>
             <Link 
               to="/login" 
-              className="text-farm font-bold text-sm uppercase tracking-widest hover:text-gray-900 transition-all duration-300 hover:scale-110 active:scale-95 border-b-2 border-farm/20 hover:border-gray-900 pb-0.5"
+              className="text-farm font-semibold text-[11px] uppercase tracking-[0.15em] hover:text-gray-900 transition-all duration-300 hover:scale-105 active:scale-95 pb-0.5 border-b border-farm/10 hover:border-gray-900"
             >
               Inicia sesión aquí
             </Link>
