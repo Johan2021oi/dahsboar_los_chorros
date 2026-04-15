@@ -32,11 +32,11 @@ export default function Layout() {
   };
 
   const navItems = [
-    { name: "Principal", path: "/", icon: Home },
+    { name: "Dashboard", path: "/", icon: Home },
     { name: "Clientes", path: "/clientes", icon: Users },
     { name: "Ventas", path: "/ventas", icon: ShoppingCart },
     { name: "Pagos/Abonos", path: "/pagos", icon: DollarSign },
-    { name: "Gastos", path: "/gastos", icon: ReceiptText },
+    { name: "Gastos/Egresos", path: "/gastos", icon: ReceiptText },
     { name: "Inventario", path: "/inventario", icon: Box },
   ];
 
@@ -131,7 +131,7 @@ export default function Layout() {
                         className={isActive ? "text-farm" : "group-hover:text-gray-900"}
                       />
                     </div>
-                    <span className="text-[13px] tracking-wide uppercase">
+                    <span className="text-[13px] tracking-wide">
                       {item.name}
                     </span>
                     {isActive && (
@@ -163,7 +163,7 @@ export default function Layout() {
                 size={20}
                 className="group-hover:rotate-90 transition-transform duration-700"
               />
-              <span className="text-[11px] uppercase tracking-widest">Personalizar</span>
+              <span className="text-[11px] tracking-widest">Ajustes</span>
             </button>
 
             <button
@@ -171,7 +171,7 @@ export default function Layout() {
               className="flex items-center gap-4 w-full px-6 py-4 rounded-[1.25rem] text-red-400 hover:bg-red-50 hover:text-red-500 transition-all duration-500 font-black group"
             >
               <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
-              <span className="text-[11px] uppercase tracking-widest">Salir del Portal</span>
+              <span className="text-[11px] tracking-widest">Salir del Portal</span>
             </button>
           </div>
         </div>
