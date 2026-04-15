@@ -133,7 +133,7 @@ export default function DatePicker({
             className={`bg-transparent border-none outline-none placeholder:text-gray-300 cursor-pointer text-center
               ${compact
                 ? "text-[11px] font-medium text-gray-500 w-full tracking-tight"
-                : `font-black text-gray-900 w-full ${size === "sm" ? "text-xs" : "text-base"}`
+                : `font-black text-gray-900 w-full ${size === "sm" ? "text-xs" : "text-sm"}`
               }`}
           />
         </div>
