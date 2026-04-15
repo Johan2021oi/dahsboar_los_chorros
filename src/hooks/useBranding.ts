@@ -29,29 +29,35 @@ export function useBranding() {
     if (!user) return;
 
     const fetchBranding = async () => {
-      const { data, error } = await supabase
-        .from('branding')
-        .select('*')
-        .single() as any;
+      try {
+        const { data, error } = await supabase
+          .from('branding')
+          .select('*')
+          .eq('user_id', user.id)
+          .single() as any;
 
-      if (data && !error) {
-        setBranding({
-          appName: data.app_name,
-          logoText: data.logo_text,
-          subtitle: data.subtitle,
-          logoImage: data.logo_image,
-          phone: data.phone,
-          address: data.address,
-          email: data.email,
-        });
-      } else if (error && error.code === 'PGRST116') {
-        // Si no existe, usamos los valores del registro (user_metadata) si están disponibles
-        const businessName = user.user_metadata?.business_name;
-        if (businessName) {
-          setBranding(prev => ({ ...prev, appName: businessName }));
+        if (data && !error) {
+          setBranding({
+            appName: data.app_name,
+            logoText: data.logo_text,
+            subtitle: data.subtitle,
+            logoImage: data.logo_image,
+            phone: data.phone,
+            address: data.address,
+            email: data.email,
+          });
+        } else if (error && error.code === 'PGRST116') {
+          // Si no existe, usamos los valores del registro (user_metadata) si están disponibles
+          const businessName = user.user_metadata?.business_name;
+          if (businessName) {
+            setBranding(prev => ({ ...prev, appName: businessName }));
+          }
         }
+      } catch (err) {
+        console.error('Error fetching branding:', err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchBranding();
