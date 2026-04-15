@@ -97,9 +97,10 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-900 transition-all duration-300 z-10 p-1 hover:bg-gray-50 rounded-full"
+                className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-500 hover:text-farm transition-all duration-300 z-20 p-2 hover:bg-gray-50 rounded-full flex items-center justify-center cursor-pointer"
+                title={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
               </button>
             </div>
 
