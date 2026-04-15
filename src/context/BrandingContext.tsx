@@ -39,51 +39,38 @@ export function BrandingProvider({ children }: { children: React.ReactNode }) {
   });
   const [loading, setLoading] = useState(true);
 
-  // Cargar desde Supabase
+  // Cargar desde Auth Metadata
   useEffect(() => {
     if (!user) {
       setLoading(false);
       return;
     }
 
-    const fetchBranding = async () => {
+    const loadBrandingFromMetadata = () => {
       try {
-        const { data, error } = await supabase
-          .from('branding')
-          .select('*')
-          .eq('user_id', user.id)
-          .single() as any;
-
-        if (data && !error) {
-          const loadedBranding = {
-            appName: data.app_name,
-            logoText: data.logo_text,
-            subtitle: data.subtitle,
-            logoImage: data.logo_image,
-            phone: data.phone,
-            address: data.address,
-            email: data.email,
-          };
-          setBranding(loadedBranding);
-          // Actualizar fallback
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedBranding));
-        } else if (error && error.code === 'PGRST116') {
-          // Si no existe en DB, usar metadata o el fallback que ya tenemos
-          const businessName = user.user_metadata?.business_name;
-          if (businessName && !localStorage.getItem(STORAGE_KEY)) {
-            const initial = { ...DEFAULT_BRANDING, appName: businessName };
-            setBranding(initial);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
-          }
-        }
+        const metadata = user.user_metadata || {};
+        
+        // Cargar desde metadata con fallback al DEFAULT_BRANDING
+        const loadedBranding: Branding = {
+          appName: metadata.app_name || metadata.business_name || DEFAULT_BRANDING.appName,
+          logoText: metadata.logo_text || DEFAULT_BRANDING.logoText,
+          subtitle: metadata.subtitle || DEFAULT_BRANDING.subtitle,
+          logoImage: metadata.logo_image || DEFAULT_BRANDING.logoImage,
+          phone: metadata.phone,
+          address: metadata.address,
+          email: metadata.email,
+        };
+        
+        setBranding(loadedBranding);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedBranding));
       } catch (err) {
-        console.error('Error fetching branding from DB:', err);
+        console.error('Error loading branding from metadata:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBranding();
+    loadBrandingFromMetadata();
   }, [user]);
 
   const updateBranding = async (newBranding: Partial<Branding>): Promise<boolean> => {
@@ -95,7 +82,7 @@ export function BrandingProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setBranding(updated);
 
-    // 2. Persistencia en Supabase
+    // 2. Persistencia en Supabase Auth Metadata
     try {
       // Comprimir imagen si es muy grande
       let logoToSave = updated.logoImage;
@@ -118,10 +105,9 @@ export function BrandingProvider({ children }: { children: React.ReactNode }) {
         });
       }
 
-      const { error } = await supabase
-        .from('branding')
-        .upsert({
-          user_id: user.id,
+      // Guardar directamente en el perfil del usuario (Auth Metadata)
+      const { error } = await supabase.auth.updateUser({
+        data: {
           app_name: updated.appName,
           logo_text: updated.logoText,
           subtitle: updated.subtitle,
@@ -129,14 +115,16 @@ export function BrandingProvider({ children }: { children: React.ReactNode }) {
           phone: updated.phone,
           address: updated.address,
           email: updated.email,
-        } as any, { onConflict: 'user_id' });
+          business_name: updated.appName // Mantener compatibilidad por si acaso
+        }
+      });
 
       if (error) {
-        console.error('Error saving to Supabase:', error);
+        console.error('Error saving to Auth Metadata:', error);
         return false;
       }
 
-      // Sincronizar estado final con imagen comprimida si aplica
+      // Sincronizar estado final
       const finalBranding = { ...updated, logoImage: logoToSave };
       setBranding(finalBranding);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(finalBranding));
