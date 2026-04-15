@@ -307,7 +307,7 @@ export default function Dashboard() {
             up: true,
           },
           {
-            label: "egresos (gastos)",
+            label: "EGRESOS (GASTOS)",
             value: `-${formatCurrency(stats.gastos)}`,
             icon: CreditCard,
             color: "red-600",
@@ -330,12 +330,8 @@ export default function Dashboard() {
         ].map((s, i) => (
           <div
             key={i}
-            className="relative group bg-white p-7 rounded-[2rem] shadow-xl shadow-gray-200/40 border border-gray-100 overflow-hidden transition-all hover:scale-[1.02] duration-500"
+            className="relative group bg-white p-7 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all hover:-translate-y-1 duration-500"
           >
-            {" "}
-            <div
-              className={`absolute top-0 right-0 w-24 h-24 bg-${s.color}/5 rounded-full -mr-12 -mt-12 group-hover:scale-110 transition-transform duration-700`}
-            ></div>{" "}
             <div className="relative flex flex-col h-full justify-between">
               {" "}
               <div className="flex justify-between items-center mb-1">
@@ -377,7 +373,7 @@ export default function Dashboard() {
       </div>{" "}
       <div
       className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 animate-in fade-in duration-500 px-4"
-    >    <div className="bg-white/80 backdrop-blur-md p-8 rounded-[2rem] shadow-2xl border border-white/20 relative overflow-hidden flex flex-col h-[420px]">
+    >    <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[420px]">
           <div className="flex items-center justify-between mb-4 shrink-0">
             <h3 className="text-lg font-black text-gray-800 tracking-tight uppercase">
               FLUJO DE INGRESOS
@@ -458,7 +454,7 @@ export default function Dashboard() {
             </ResponsiveContainer>{" "}
           </div>{" "}
         </div>{" "}
-        <div className="bg-white/80 backdrop-blur-md p-8 rounded-[2rem] shadow-2xl border border-white/20 flex flex-col h-[420px]">
+        <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[420px]">
           <div className="flex items-center justify-between mb-4 shrink-0">
             <h3 className="text-lg font-black text-gray-800 tracking-tight uppercase">
               TOP MOVIMIENTO
