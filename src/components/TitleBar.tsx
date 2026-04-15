@@ -11,6 +11,11 @@ declare global {
   }
 }
 export default function TitleBar() {
+  // Solo renderizar si estamos en Electron (donde existe window.electron)
+  if (typeof window === 'undefined' || !window.electron) {
+    return null;
+  }
+
   const handleMinimize = () => {
     console.log("Minimize clicked");
     if (window.electron?.windowControls) {
