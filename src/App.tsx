@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { BrandingProvider } from './context/BrandingContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
@@ -14,7 +15,8 @@ import Register from './pages/Register';
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <BrandingProvider>
+        <Router>
         <Routes>
           {/* Rutas Públicas */}
           <Route path="/login" element={<Login />} />
@@ -38,8 +40,9 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
-    </AuthProvider>
-  );
+    </BrandingProvider>
+  </AuthProvider>
+);
 }
 
 export default App;

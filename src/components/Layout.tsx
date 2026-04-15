@@ -27,9 +27,13 @@ export default function Layout() {
   const { user, signOut } = useAuth();
   const isElectron = typeof window !== 'undefined' && !!window.electron;
 
-  const handleSaveBranding = (newBranding: any) => {
-    updateBranding(newBranding);
-    setToastMessage("¡Configuración guardada!");
+  const handleSaveBranding = async (newBranding: any) => {
+    const success = await updateBranding(newBranding);
+    if (success) {
+      setToastMessage("¡Configuración guardada!");
+    } else {
+      setToastMessage("Error al guardar en la nube. Cambios guardados localmente.");
+    }
   };
 
   const navItems = [
