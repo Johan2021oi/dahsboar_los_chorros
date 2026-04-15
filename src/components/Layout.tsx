@@ -15,6 +15,7 @@ import TitleBar from "./TitleBar";
 import { useBranding } from "../hooks/useBranding";
 import { useAuth } from "../context/AuthContext";
 import BrandingModal from "./BrandingModal";
+import Toast from "./Toast";
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,7 +29,6 @@ export default function Layout() {
   const handleSaveBranding = (newBranding: any) => {
     updateBranding(newBranding);
     setToastMessage("¡Configuración guardada!");
-    setTimeout(() => setToastMessage(null), 3000);
   };
 
   const navItems = [
@@ -49,14 +49,12 @@ export default function Layout() {
       <TitleBar />
       <div className="h-full flex overflow-hidden">
         
-        {/* Toast Premium */}
         {toastMessage && (
-          <div className="fixed top-24 right-1/2 translate-x-1/2 z-[100] animate-in slide-in-from-top-10 fade-in duration-500">
-            <div className="bg-gray-900/90 backdrop-blur-xl text-white px-8 py-4 rounded-[2rem] font-black shadow-2xl shadow-gray-900/20 flex items-center gap-3 text-sm border border-white/10 uppercase tracking-widest scale-105">
-              <div className="w-2 h-2 bg-farm rounded-full animate-ping" />
-              {toastMessage}
-            </div>
-          </div>
+          <Toast 
+            type="success" 
+            message={toastMessage} 
+            onClose={() => setToastMessage(null)} 
+          />
         )}
 
         <BrandingModal
