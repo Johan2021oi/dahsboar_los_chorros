@@ -159,13 +159,13 @@ export default function Inventario() {
   return (
     <>
     <div
-      className="max-w-7xl mx-auto pb-12 space-y-8 animate-in fade-in duration-500"
+      className="max-w-7xl mx-auto pb-12 space-y-6 lg:space-y-8 animate-in fade-in duration-500"
       onClick={() => {
         confirmDeleteId && setConfirmDeleteId(null);
         notification && setNotification(null);
       }}
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 shrink-0 mb-4">
+      <div className="hidden lg:flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 shrink-0 mb-4 px-2 lg:px-0">
         <div className="flex items-center gap-6">
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
@@ -176,18 +176,23 @@ export default function Inventario() {
             </p>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 shrink-0 mb-4 px-2 lg:px-0 lg:hidden">
+         {/* Espacio reservado para botones en móvil si es necesario */}
+      </div>
+
         <button
           onClick={() => {
             setEditingId(null);
             setIsModalOpen(true);
           }}
-          className="bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
+          className="w-full lg:w-auto bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
         >
-          <Plus size={20} /> NUEVO PRODUCTO
+          <Plus size={20} /> <span className="text-sm">NUEVO PRODUCTO</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 px-2 lg:px-0">
         {[
           {
             label: "VALOR INVENTARIO",
@@ -222,7 +227,7 @@ export default function Inventario() {
         ].map((s, i) => (
           <div
             key={i}
-            className="bg-white p-7 rounded-[2rem] border border-gray-100 shadow-xl shadow-gray-200/20 relative overflow-hidden group"
+            className="bg-white p-5 lg:p-7 rounded-[1.5rem] lg:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/20 relative overflow-hidden group transition-all"
           >
             <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3 leading-none">
               {s.label}
@@ -239,7 +244,7 @@ export default function Inventario() {
         ))}
       </div>
 
-      <div className="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
         {/* Wrapper relativo para contener el gradiente dentro del card */}
         <div className="relative">
           <div className="max-h-[500px] overflow-y-auto custom-scrollbar pb-4" id="inventario-scroll">
@@ -376,9 +381,9 @@ export default function Inventario() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-center justify-center p-4">
-          <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-white/20 flex justify-between items-center bg-white/40 rounded-t-[2.5rem]">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-white rounded-t-[2.5rem] sm:rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in slide-in-from-bottom sm:zoom-in-95 duration-200">
+            <div className="p-6 border-b border-white/20 flex justify-between items-center bg-white/40 rounded-t-[1.5rem] lg:rounded-t-[2.5rem]">
               <h2 className="text-xl font-black text-gray-900 uppercase tracking-tight">
                 {editingId ? "Editar Item" : "Nuevo Producto"}
               </h2>

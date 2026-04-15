@@ -193,41 +193,44 @@ export default function Gastos() {
   return (
     <>
     <div
-      className="max-w-7xl mx-auto space-y-12 animate-in fade-in duration-500 pb-12"
+      className="max-w-7xl mx-auto space-y-8 lg:space-y-12 animate-in fade-in duration-500 pb-12 px-0 lg:px-4"
       onClick={() => {
         confirmDeleteId && setConfirmDeleteId(null);
       }}
     >
 
       {/* Header General */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div className="hidden lg:flex flex-row items-center justify-between gap-6 px-0">
         <div>
-          <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
+          <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase text-left">
             Gestión de Egresos
           </h1>
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none text-left">
             REGISTRA Y CONTROLA LAS SALIDAS DE DINERO
           </p>
         </div>
+      </div>
+      
+      <div className="flex flex-col lg:flex-row lg:items-center justify-end gap-6 px-4 lg:px-0 lg:mt-[-72px]">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-xl shadow-red-500/20 hover:scale-[1.05] active:scale-[0.98] uppercase tracking-wide"
+          className="w-full lg:w-auto bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-xl shadow-red-500/20 active:scale-95 uppercase tracking-wide whitespace-nowrap"
         >
-          <Plus size={20} /> REGISTRAR GASTO
+          <Plus size={20} /> <span className="text-sm">REGISTRAR GASTO</span>
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-start">
         {/* Columna Izquierda: Historial */}
-        <div className="space-y-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <h2 className="text-lg font-black text-gray-800 uppercase tracking-tight leading-tight">
-              HISTORIAL DE <br /> EGRESOS
+        <div className="space-y-6 lg:space-y-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-6">
+            <h2 className="text-lg font-black text-gray-800 uppercase tracking-tight leading-tight px-2 lg:px-0">
+              HISTORIAL DE <br className="hidden lg:block" /> EGRESOS
             </h2>
-            <div className="flex items-center gap-1 bg-gray-100/50 p-1.5 rounded-2xl border border-gray-100 shrink-0">
+            <div className="flex items-center gap-1 bg-gray-100/50 p-1.5 rounded-2xl border border-gray-100 shrink-0 overflow-x-auto mx-2 lg:mx-0 no-scrollbar">
               {range === "personalizado" && (
                 <>
-                  <div className="w-[90px]">
+                  <div className="w-[85px] lg:w-[90px]">
                     <DatePicker
                       value={customDates.start}
                       onChange={(d) => setCustomDates({ ...customDates, start: d })}
@@ -235,7 +238,7 @@ export default function Gastos() {
                     />
                   </div>
                   <span className="text-gray-300 text-[9px] font-bold px-0.5 shrink-0">→</span>
-                  <div className="w-[90px]">
+                  <div className="w-[85px] lg:w-[90px]">
                     <DatePicker
                       value={customDates.end}
                       onChange={(d) => setCustomDates({ ...customDates, end: d })}
@@ -260,7 +263,7 @@ export default function Gastos() {
 
 
 
-          <div className="flex items-center justify-between px-1">
+          <div className="flex items-center justify-between px-2 lg:px-1">
             <div className="flex items-center gap-3">
               <div className="flex flex-col">
                 <div className="flex items-center gap-2 mt-0.5">
@@ -300,7 +303,7 @@ export default function Gastos() {
             </div>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden mx-2 lg:mx-0">
             <div className="relative">
               <div className="max-h-[452px] overflow-y-auto custom-scrollbar pb-3">
                 <div className="overflow-x-auto">
@@ -405,8 +408,8 @@ export default function Gastos() {
         </div>
 
         {/* Columna Derecha: Estadísticas */}
-        <div className="space-y-8">
-          <div className="bg-red-500 text-white p-6 rounded-[2.5rem] shadow-xl shadow-red-500/20 relative overflow-hidden group">
+        <div className="space-y-6 lg:space-y-8 px-2 lg:px-0">
+          <div className="bg-red-500 text-white p-6 rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl shadow-red-500/20 relative overflow-hidden group">
             <div className="relative z-10">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">
@@ -425,7 +428,7 @@ export default function Gastos() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
           </div>
 
-          <div className="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/20">
+          <div className="bg-white p-6 rounded-[1.5rem] lg:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/20">
             <h3 className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-4 block">
               Distribución por Categoría
             </h3>
@@ -462,9 +465,9 @@ export default function Gastos() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-center justify-center p-4">
-          <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in zoom-in-95 duration-200 overflow-hidden">
-            <div className="p-6 border-b border-white/20 flex justify-between items-center bg-white/40">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-white rounded-t-[2.5rem] sm:rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in slide-in-from-bottom sm:zoom-in-95 duration-200 overflow-hidden">
+            <div className="p-6 border-b border-white/20 flex justify-between items-center bg-white/40 rounded-t-[1.5rem] lg:rounded-t-[2.5rem]">
               <h2 className="text-xl font-black text-gray-900">
                 {editingId ? "Editar Gasto" : "Nuevo Egreso"}
               </h2>
@@ -499,7 +502,7 @@ export default function Gastos() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">
                     Monto ($)

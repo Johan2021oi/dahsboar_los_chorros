@@ -199,11 +199,11 @@ export default function Dashboard() {
       minimumFractionDigits: 0,
     }).format(val);
   return (
-    <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-500">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-40">
+    <div className="max-w-7xl mx-auto space-y-6 lg:space-y-10 animate-in fade-in duration-500">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 relative z-40">
         <div className="flex flex-row items-center gap-4 min-w-0">
           <div className="shrink-0">
-            <h1 className="text-xl font-black text-gray-900 tracking-tight flex items-center gap-3 whitespace-nowrap">
+            <h1 className="text-xl font-black text-gray-900 tracking-tight hidden lg:flex items-center gap-3 whitespace-nowrap">
               DASHBOARD GENERAL
             </h1>
             <div className="flex flex-col gap-1 mt-1">
@@ -217,7 +217,7 @@ export default function Dashboard() {
                   onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
                 />
               ) : (
-                <div className="flex items-center gap-4">
+                <div className="hidden lg:flex items-center gap-4">
                   <div
                     onClick={() => {
                       setTempName(branding.appName);
@@ -236,7 +236,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6 flex-wrap lg:flex-nowrap justify-end flex-1">
+        <div className="flex items-center gap-4 lg:gap-6 flex-wrap lg:flex-nowrap justify-start lg:justify-end flex-1">
           {range === "personalizado" && (
             <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-gray-100 shadow-sm duration-500 shrink-0">
               <div className="flex items-center gap-2">
@@ -269,7 +269,7 @@ export default function Dashboard() {
           {lowStockCount > 0 && (
             <button
               onClick={() => navigate("/inventario")}
-              className="flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-2xl border-2 border-orange-100/50 duration-500 hover:bg-orange-100 transition-all group shadow-sm shadow-orange-100/20 active:scale-95 shrink-0"
+              className="flex items-center gap-2 bg-orange-50 px-3 lg:px-4 py-2 rounded-2xl border-2 border-orange-100/50 duration-500 hover:bg-orange-100 transition-all group shadow-sm shadow-orange-100/20 active:scale-95 shrink-0"
             >
               <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
               <span className="text-[10px] font-black text-orange-600 tracking-wider uppercase">
@@ -279,7 +279,7 @@ export default function Dashboard() {
               </span>
             </button>
           )}
-          <div className="relative z-[60] flex items-center gap-1 bg-white/50 p-1.5 rounded-2xl border border-gray-100 shadow-sm backdrop-blur-md shrink-0">
+          <div className="relative z-[60] flex items-center gap-1 bg-white/50 p-1 rounded-xl lg:p-1.5 lg:rounded-2xl border border-gray-100 shadow-sm backdrop-blur-md shrink-0">
             {(["hoy", "semana", "mes", "personalizado"] as TimeRange[]).map(
               (t) => (
                 <button
@@ -295,7 +295,7 @@ export default function Dashboard() {
       </div>
     </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
         {" "}
         {[
           {
@@ -330,7 +330,7 @@ export default function Dashboard() {
         ].map((s, i) => (
           <div
             key={i}
-            className="relative group bg-white p-7 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all hover:-translate-y-1 duration-500"
+            className="relative group bg-white p-5 lg:p-7 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all hover:-translate-y-1 duration-500"
           >
             <div className="relative flex flex-col h-full justify-between">
               {" "}
@@ -373,7 +373,7 @@ export default function Dashboard() {
       </div>{" "}
       <div
       className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 animate-in fade-in duration-500 px-4"
-    >    <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[420px]">
+    >    <div className="bg-white p-4 lg:p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[350px] lg:h-[420px]">
           <div className="flex items-center justify-between mb-4 shrink-0">
             <h3 className="text-lg font-black text-gray-800 tracking-tight uppercase">
               FLUJO DE INGRESOS
@@ -454,7 +454,7 @@ export default function Dashboard() {
             </ResponsiveContainer>{" "}
           </div>{" "}
         </div>{" "}
-        <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[420px]">
+        <div className="bg-white p-4 lg:p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-[400px] lg:h-[420px]">
           <div className="flex items-center justify-between mb-4 shrink-0">
             <h3 className="text-lg font-black text-gray-800 tracking-tight uppercase">
               TOP MOVIMIENTO

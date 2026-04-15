@@ -9,6 +9,7 @@ import {
   Settings,
   LogIn,
   LogOut,
+  Menu,
 } from "lucide-react";
 import { useState } from "react";
 import TitleBar from "./TitleBar";
@@ -65,18 +66,16 @@ export default function Layout() {
         />
 
         {/* Sidebar Overlay */}
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-30 lg:hidden transition-all duration-500"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+        <div
+          className={`fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[998] transition-all duration-500 lg:hidden ${sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+          onClick={() => setSidebarOpen(false)}
+        />
 
         {/* Sidebar Premium */}
         <div
           className={` 
-            fixed lg:static inset-y-0 left-0 w-72 bg-white transform transition-all duration-700 ease-out z-40 flex flex-col 
-            border-r border-gray-100/80
+            fixed lg:static inset-y-0 left-0 w-72 bg-white transform transition-all duration-500 ease-in-out z-[999] flex flex-col 
+            border-r border-gray-100 shadow-2xl lg:shadow-none
             ${isElectron ? "pt-12" : "pt-4"} 
             ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           `}
@@ -160,9 +159,37 @@ export default function Layout() {
           </div>
         </div>
 
+        {/* Mobile Top Bar */}
+        <div className="flex lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-[9999] items-center justify-between px-5 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-gray-900 rounded-xl flex items-center justify-center text-farm overflow-hidden shadow-lg shadow-gray-900/20">
+               {branding?.logoImage ? (
+                <img src={branding.logoImage} alt="Logo" className="w-full h-full object-cover p-1" />
+              ) : (
+                <span className="text-base font-black">{branding?.logoText || "B"}</span>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <span className="font-black text-xs text-gray-900 uppercase tracking-tight leading-none">
+                Busi | Tu negocio inteligente
+              </span>
+              <span className="text-[8px] font-bold text-farm uppercase tracking-widest mt-0.5">
+                Panel de Control
+              </span>
+            </div>
+          </div>
+          <button 
+            onClick={() => setSidebarOpen(true)}
+            className="p-2.5 bg-gray-50 rounded-xl text-gray-900 hover:bg-gray-100 active:scale-95 transition-all shadow-sm border border-gray-100"
+            aria-label="Abrir menú"
+          >
+            <Menu size={22} strokeWidth={2.5} />
+          </button>
+        </div>
+
         {/* Main Content Area */}
-        <main className={`flex-1 w-full flex flex-col bg-gray-50/50 ${isElectron ? "pt-8" : "pt-0"}`}>
-          <div className="flex-1 p-6 lg:p-14 lg:pt-10 overflow-y-auto custom-scrollbar-premium animate-in fade-in duration-1000">
+        <main className={`flex-1 w-full flex flex-col bg-gray-50/50 ${isElectron ? "pt-8" : "pt-16 lg:pt-0"}`}>
+          <div className="flex-1 p-4 lg:p-14 lg:pt-10 overflow-y-auto custom-scrollbar-premium animate-in fade-in duration-1000">
             <Outlet />
           </div>
         </main>

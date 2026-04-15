@@ -22,13 +22,24 @@
       // Forzar la limpieza de Service Workers antiguos que bloquean la actualización
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            registration.unregister();
+          if (registrations.length > 0) {
+            console.log('Limpiando Service Workers para forzar actualización...');
+            for(let registration of registrations) {
+              registration.unregister();
+            }
+            // Después de limpiar, recargar saltando la caché
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 500);
           }
-          if(registrations.length > 0) window.location.reload();
         });
       }
+      
+      // Cache-busting para el script principal
+      window.addEventListener('load', () => {
+        console.log('Busi Mobile | App Ready');
+      });
     </script>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx?v=mobile_update_v1"></script>
   </body>
 </html>

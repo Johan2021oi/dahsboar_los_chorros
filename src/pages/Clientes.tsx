@@ -341,8 +341,8 @@ export default function Clientes() {
       }}
     >
       {" "}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 mb-8">
-        <div>
+      <div className="hidden lg:flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 mb-8">
+        <div className="text-left">
           <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
             GESTIÓN DE CLIENTES
           </h1>
@@ -350,38 +350,40 @@ export default function Clientes() {
             ADMINISTRA TU CARTERA Y CONTACTOS ESTRATÉGICOS
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowArchived(!showArchived)}
-            className={`px-4 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${
-              showArchived
-                ? "bg-amber-500 text-white hover:bg-amber-600 shadow-lg shadow-amber/20"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            }`}
-          >
-            {showArchived ? (
-              <>
-                <Users size={18} />
-                <span className="text-sm">Ver Activos</span>
-              </>
-            ) : (
-              <>
-                <Archive size={18} />
-                <span className="text-sm">Ver Archivados</span>
-              </>
-            )}
-          </button>
-          {!showArchived && (
-            <button
-              onClick={() => openModal()}
-              className="bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-farm/20 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Plus size={20} /> Nuevo Cliente
-            </button>
+      </div>
+      <div className="flex items-center gap-2 lg:gap-3 flex-wrap mb-8">
+        <button
+          onClick={() => setShowArchived(!showArchived)}
+          className={`flex-1 lg:flex-none px-4 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${
+            showArchived
+              ? "bg-amber-500 text-white hover:bg-amber-600 shadow-lg shadow-amber/20"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          {showArchived ? (
+            <>
+              <Users size={18} />
+              <span className="text-sm">Ver Activos</span>
+            </>
+          ) : (
+            <>
+              <Archive size={18} />
+              <span className="text-sm">Ver Archivados</span>
+            </>
           )}
+        </button>
+        {!showArchived && (
+          <button
+            onClick={() => openModal()}
+            className="flex-1 lg:flex-none bg-farm hover:bg-farm-dark text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-farm/20 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
+          >
+            <Plus size={20} /> <span className="text-sm">Nuevo Cliente</span>
+          </button>
+        )}
+      </div>
         </div>
       </div>{" "}
-      <div className="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
         {" "}
         <div className="p-6 border-b flex items-center gap-4 bg-white group">
           {" "}
@@ -397,9 +399,9 @@ export default function Clientes() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>{" "}
-        <div className="max-h-[550px] overflow-y-auto custom-scrollbar">
-          {" "}
-          <table className="w-full text-left table-fixed">
+        <div className="max-h-[550px] overflow-x-auto overflow-y-auto custom-scrollbar">
+          <div className="min-w-[800px] lg:min-w-full">
+            <table className="w-full text-left table-fixed">
             {" "}
             <thead>
               {" "}
@@ -644,14 +646,15 @@ export default function Clientes() {
                 </tr>
               )}{" "}
             </tbody>{" "}
-          </table>{" "}
+            </table>
+          </div>
         </div>{" "}
       </div>{" "}
       {/* Modal CRUD Cliente */}{" "}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[1000] flex items-end sm:items-center justify-center p-0 sm:p-4">
           {" "}
-          <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in zoom-in-95 duration-200 overflow-hidden">
+          <div className="bg-white rounded-t-[2.5rem] sm:rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/40 animate-in slide-in-from-bottom sm:zoom-in-95 duration-200 overflow-hidden">
             {" "}
             <div className="p-6 border-b border-white/20 flex justify-between items-center bg-white/40">
               {" "}
@@ -682,7 +685,7 @@ export default function Clientes() {
                   required
                 />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">
                     Identificación (CC)

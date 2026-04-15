@@ -255,13 +255,13 @@ export default function Pagos() {
   return (
     <>
     <div
-      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 pb-20 px-4"
+      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 pb-20 px-0 lg:px-4"
       onClick={() => confirmDeleteId && setConfirmDeleteId(null)}
     >
       {" "}
       <div className="space-y-8 relative z-20">
         {" "}
-        <div className="flex justify-between items-start">
+        <div className="hidden lg:flex justify-between items-start">
           {" "}
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
@@ -272,9 +272,9 @@ export default function Pagos() {
             </p>
           </div>{" "}
         </div>{" "}
-        <div className="bg-white/80 backdrop-blur-md rounded-[3rem] shadow-xl border border-white/20 p-10">
+        <div className="bg-white p-6 lg:p-10 rounded-[2rem] lg:rounded-[3rem] shadow-xl border border-white/20">
           {" "}
-          <form onSubmit={handleSubmit} className="space-y-10">
+          <form onSubmit={handleSubmit} className="space-y-8 lg:space-y-10">
             {" "}
               <div className="space-y-4">
                 {" "}
@@ -397,7 +397,7 @@ export default function Pagos() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* SALDO DE CARTERA */}
               <div className="space-y-3">
                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
@@ -427,7 +427,7 @@ export default function Pagos() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* MONTO DEL ABONO */}
               <div className="space-y-3">
                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
@@ -505,7 +505,7 @@ export default function Pagos() {
             </div>
             <div className="pt-8 border-t border-gray-100 flex justify-start">
               {" "}
-              <div className="flex items-center gap-3 w-full md:w-auto flex-shrink-0 pb-1">
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto flex-shrink-0 pb-1">
                 {" "}
                 {deudaActual > 0 && selectedCliente && !editingId && (
                   <button
@@ -525,7 +525,7 @@ export default function Pagos() {
                       setMonto("");
                       setFechaPago(new Date().toISOString().split("T")[0]);
                     }}
-                    className="flex-1 md:flex-none px-10 py-5 bg-gray-100 text-gray-400 font-bold rounded-full hover:bg-gray-200 transition-all uppercase text-[10px] tracking-widest whitespace-nowrap"
+                    className="w-full lg:w-auto px-10 py-5 bg-gray-100 text-gray-400 font-bold rounded-full hover:bg-gray-200 transition-all uppercase text-[10px] tracking-widest whitespace-nowrap"
                   >
                     Cancelar
                   </button>
@@ -533,7 +533,7 @@ export default function Pagos() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`flex-1 md:flex-none px-12 py-5 bg-gray-900 text-white font-black rounded-full shadow-2xl transition-all uppercase text-[10px] md:text-xs tracking-widest whitespace-nowrap ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:opacity-90 active:scale-[0.98]"}`}
+                  className={`w-full lg:w-auto px-12 py-5 bg-gray-900 text-white font-black rounded-full shadow-2xl transition-all uppercase text-[10px] md:text-xs tracking-widest whitespace-nowrap ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:opacity-90 active:scale-[0.98]"}`}
                 >
                   {" "}
                   {isSubmitting
@@ -549,7 +549,7 @@ export default function Pagos() {
       </div>{" "}
       <div className="space-y-8 relative z-10">
         {" "}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-4 px-0">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 lg:gap-6 mb-4 px-2 lg:px-0">
           <h2 className="text-lg font-black text-gray-800 uppercase tracking-tight">
             ÚLTIMOS ABONOS
           </h2>
@@ -624,7 +624,7 @@ export default function Pagos() {
                 placeholder="Buscar..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-20 sm:w-32 bg-transparent text-[10px] font-medium outline-none placeholder:text-gray-200 text-gray-700 tracking-wider"
+                className="w-16 sm:w-32 bg-transparent text-[10px] font-medium outline-none placeholder:text-gray-200 text-gray-700 tracking-wider"
               />{" "}
             </div>{" "}
             <button
@@ -637,7 +637,7 @@ export default function Pagos() {
             </button>{" "}
           </div>{" "}
         </div>{" "}
-        <div className="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden relative group">
+        <div className="bg-white rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden relative group mx-2 lg:mx-0">
           <div className="max-h-[485px] overflow-y-auto custom-scrollbar divide-y divide-gray-50">
             {filteredPagos.map((p) => (
               <div key={p.id} className="p-5 hover:bg-gray-50/50 transition-colors group">

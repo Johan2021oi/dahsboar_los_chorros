@@ -425,7 +425,7 @@ link.click();
   return (
     <>
     <div
-      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 pb-20 px-4"
+      className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 pb-20 px-0 lg:px-4"
       onClick={() => {
         setActiveDropdownId(null);
         if (confirmDeleteId) setConfirmDeleteId(null);
@@ -433,7 +433,7 @@ link.click();
       }}
     >
       <div className="space-y-8 relative z-20">
-        <div className="flex items-center justify-between px-2">
+        <div className="hidden lg:flex items-center justify-between px-2">
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight uppercase">
               {editingId ? "Editar Venta" : "Nueva Venta"}
@@ -449,10 +449,10 @@ link.click();
           </div>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-md p-10 rounded-[3rem] shadow-2xl border border-white/20 relative flex flex-col h-fit">
+        <div className="bg-white p-6 lg:p-10 rounded-[2rem] lg:rounded-[3rem] shadow-2xl border border-white/20 relative flex flex-col h-fit">
           <div className="flex-1 -mx-2 px-2 pr-4">
-            <form onSubmit={handleSubmit} className="space-y-10 pb-4">
-              <div className="grid grid-cols-1 sm:grid-cols-[1.3fr_0.7fr] gap-8 items-start">
+            <form onSubmit={handleSubmit} className="space-y-8 lg:space-y-10 pb-4">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-6 lg:gap-8 items-start">
                 <div className="space-y-4 relative">
                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1.5 flex items-center gap-2">
                     <User size={14} className="text-farm" /> CLIENTE
@@ -578,7 +578,7 @@ link.click();
                     {detalles.map((d, index) => (
                       <div
                         key={d.id}
-                        className="relative bg-gray-50/50 p-4 rounded-[2.5rem] border border-gray-100 grid grid-cols-1 md:grid-cols-[1fr_80px_160px_40px] gap-4 items-center group"
+                        className="relative bg-gray-50/50 p-4 rounded-[1.5rem] lg:rounded-[2.5rem] border border-gray-100 grid grid-cols-1 sm:grid-cols-[1fr_80px_160px_40px] gap-4 items-center group"
                       >
                         {/* Producto */}
                         <div className="space-y-1 relative min-w-0">
@@ -637,7 +637,7 @@ link.click();
                         </div>
 
                         {/* Acciones */}
-                        <div className="flex items-center justify-center pt-4 md:pt-4">
+                        <div className="flex items-center justify-end lg:justify-center pt-2 sm:pt-4">
                           {index !== 0 && (
                             <button
                               type="button"
@@ -662,7 +662,7 @@ link.click();
                 </button>
               </div>
 
-              <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6 w-full px-2">
+              <div className="pt-8 border-t border-gray-100 flex flex-col lg:flex-row items-center justify-between gap-6 w-full px-2">
                 <div className="flex-1 flex justify-start min-w-0 transition-all">
                   <div className="bg-farm text-white px-8 py-4 rounded-full shadow-xl shadow-farm/20 transition-all hover:scale-[1.02] flex flex-col min-w-0">
                     <span className="text-[10px] font-semibold opacity-60 block leading-none mb-1.5 uppercase tracking-widest">
@@ -677,7 +677,7 @@ link.click();
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-3 flex-shrink-0 w-full md:w-auto pb-1">
+                <div className="flex items-center justify-end gap-3 flex-shrink-0 w-full lg:w-auto pb-1">
                   {editingId && (
                     <button
                       type="button"
@@ -699,11 +699,11 @@ link.click();
                       Can
                     </button>
                   )}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`flex-1 md:flex-none px-12 py-5 ${editingId ? "bg-farm" : "bg-gray-900"} text-white font-black rounded-full shadow-2xl transition-all hover:scale-[1.05] active:scale-[0.98] uppercase text-[10px] md:text-xs tracking-widest whitespace-nowrap ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"} flex items-center justify-center`}
-                  >
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className={`flex-1 lg:flex-none px-12 py-5 ${editingId ? "bg-farm" : "bg-gray-900"} text-white font-black rounded-full shadow-2xl transition-all hover:scale-[1.05] active:scale-[0.98] uppercase text-[10px] lg:text-xs tracking-widest whitespace-nowrap ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"} flex items-center justify-center`}
+                    >
                     {isSubmitting
                       ? "Procesando..."
                       : editingId
@@ -785,7 +785,7 @@ link.click();
                 placeholder="Buscar cliente..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-20 sm:w-32 bg-transparent text-[10px] font-medium outline-none placeholder:text-gray-200 text-gray-700 tracking-wider"
+                className="w-16 sm:w-32 bg-transparent text-[10px] font-medium outline-none placeholder:text-gray-200 text-gray-700 tracking-wider"
               />
             </div>
             <button
@@ -798,7 +798,7 @@ link.click();
           </div>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden relative group">
+        <div className="bg-white rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden relative group">
           <div className="max-h-[485px] overflow-y-auto custom-scrollbar divide-y divide-gray-50">
             {filteredVentas.map((v) => (
               <div
