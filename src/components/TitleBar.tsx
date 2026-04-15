@@ -11,8 +11,12 @@ declare global {
   }
 }
 export default function TitleBar() {
-  // Solo renderizar si estamos en Electron (donde existe window.electron)
-  if (typeof window === 'undefined' || !window.electron) {
+  // Verificación ultra-estricta: SOLO renderizar si estamos dentro de Electron
+  const isElectron = typeof window !== 'undefined' && 
+                     window.electron && 
+                     window.electron.windowControls;
+
+  if (!isElectron) {
     return null;
   }
 

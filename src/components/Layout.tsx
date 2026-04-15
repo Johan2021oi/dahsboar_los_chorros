@@ -31,6 +31,8 @@ export default function Layout() {
     { name: "Gastos/Egresos", path: "/gastos", icon: ReceiptText },
     { name: "Inventario", path: "/inventario", icon: Box },
   ];
+  const isElectron = typeof window !== 'undefined' && !!window.electron;
+
   return (
     <div className="h-screen relative overflow-hidden bg-gray-50">
       {" "}
@@ -63,7 +65,7 @@ export default function Layout() {
         )}{" "}
         {/* Sidebar */}{" "}
         <div
-          className={` fixed lg:static inset-y-0 left-0 w-64 bg-white transform transition-transform duration-200 ease-in-out z-40 flex flex-col border-r border-gray-100/50 pt-8 ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"} `}
+          className={` fixed lg:static inset-y-0 left-0 w-64 bg-white transform transition-transform duration-200 ease-in-out z-40 flex flex-col border-r border-gray-100/50 ${isElectron ? "pt-8" : "pt-0"} ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"} `}
         >
           {" "}
           <div className="h-20 flex items-center gap-4 px-6 lg:mt-2 shrink-0 border-b border-gray-50/50">
@@ -131,7 +133,7 @@ export default function Layout() {
           </div>{" "}
         </div>{" "}
         {/* Main content */}{" "}
-        <main className="flex-1 w-full flex flex-col pt-8">
+        <main className={`flex-1 w-full flex flex-col ${isElectron ? "pt-8" : "pt-0"}`}>
           {" "}
           <div className="flex-1 p-4 lg:p-10 lg:pt-8 overflow-y-auto custom-scrollbar">
             {" "}
