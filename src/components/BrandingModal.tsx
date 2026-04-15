@@ -103,16 +103,24 @@ export default function BrandingModal({
                   </div>{" "}
                 </div>{" "}
                 {formData.logoImage && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setFormData({ ...formData, logoImage: null })
-                    }
-                    className="text-[10px] font-black text-red-400 hover:text-red-500 transition-colors flex items-center gap-1.5 ml-1 self-start"
-                  >
-                    {" "}
-                    <span>Eliminar Imagen y volver a iniciales</span>{" "}
-                  </button>
+                  <div className="flex flex-col gap-2 ml-1">
+                    <button
+                      type="button"
+                      onClick={() => setTempImage(formData.logoImage || null)}
+                      className="text-[10px] font-black text-farm hover:text-farm-dark transition-colors flex items-center gap-1.5 self-start"
+                    >
+                      <Crop size={14} /> <span>Ajustar dimensiones del logo actual</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormData({ ...formData, logoImage: null })
+                      }
+                      className="text-[10px] font-black text-red-400 hover:text-red-500 transition-colors flex items-center gap-1.5 self-start"
+                    >
+                      <X size={14} /> <span>Eliminar Imagen y volver a iniciales</span>
+                    </button>
+                  </div>
                 )}{" "}
               </div>{" "}
             </div>{" "}
