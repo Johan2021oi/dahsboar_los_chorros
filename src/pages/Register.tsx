@@ -71,7 +71,7 @@ export default function Register() {
             </p>
           </div>
 
-          <form onSubmit={handleRegister} className="space-y-3">
+          <form onSubmit={handleRegister} className="space-y-4">
             {error && (
               <div className={`p-4 rounded-2xl flex items-center gap-3 text-sm font-medium border animate-in shake duration-300 ${error.includes('creada') ? 'bg-green-50 text-green-600 border-green-100' : 'bg-red-50 text-red-600 border-red-100'}`}>
                 <AlertCircle size={18} />
@@ -79,45 +79,42 @@ export default function Register() {
               </div>
             )}
 
-              <div className="relative">
-                <Store className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
-                <input
-                  ref={businessRef}
-                  type="text"
-                  required
-                  value={businessName}
-                  onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
-                  placeholder="Nombre del Negocio"
-                />
-              </div>
+            <div className="relative group">
+              <Store className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
+              <input
+                ref={businessRef}
+                type="text"
+                required
+                value={businessName}
+                onChange={(e) => setBusinessName(e.target.value)}
+                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                placeholder="Nombre del Negocio"
+              />
             </div>
 
-              <div className="relative">
-                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
-                  placeholder="Correo Electrónico"
-                />
-              </div>
+            <div className="relative group">
+              <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                placeholder="Correo Electrónico"
+              />
             </div>
 
-              <div className="relative">
-                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
-                <input
-                  type="password"
-                  required
-                  minLength={6}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
-                  placeholder="Contraseña (Mínimo 6)"
-                />
-              </div>
+            <div className="relative group">
+              <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
+              <input
+                type="password"
+                required
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                placeholder="Contraseña (mín. 6)"
+              />
             </div>
 
             <button

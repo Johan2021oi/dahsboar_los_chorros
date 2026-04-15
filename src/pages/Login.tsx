@@ -64,37 +64,35 @@ export default function Login() {
               </div>
             )}
 
-              <div className="relative">
-                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
-                <input
-                  ref={emailRef}
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (error) setError(null);
-                  }}
-                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
-                  placeholder="Correo Electrónico"
-                />
-              </div>
+            <div className="relative group">
+              <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
+              <input
+                ref={emailRef}
+                type="email"
+                required
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (error) setError(null);
+                }}
+                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                placeholder="Correo Electrónico"
+              />
             </div>
 
-              <div className="relative">
-                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (error) setError(null);
-                  }}
-                  className="w-full pl-14 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
-                  placeholder="Contraseña"
-                />
-              </div>
+            <div className="relative group">
+              <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (error) setError(null);
+                }}
+                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                placeholder="Contraseña"
+              />
             </div>
 
             <button
