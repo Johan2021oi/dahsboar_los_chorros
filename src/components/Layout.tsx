@@ -81,8 +81,11 @@ export default function Layout() {
           `}
         >
           {/* Brand Header */}
-          {/* Brand Header - Hidden on Mobile */}
-          <div className="hidden lg:flex h-24 items-center gap-5 px-8 mb-6 shrink-0 group">
+          {/* Brand Header - Hidden on Mobile, Clickable to Edit */}
+          <button 
+            onClick={() => setSettingsOpen(true)}
+            className="hidden lg:flex h-24 items-center gap-5 px-8 mb-6 shrink-0 group hover:bg-gray-50/50 transition-colors w-full text-left"
+          >
             <div className="w-14 h-14 bg-gray-900 rounded-[1.75rem] flex items-center justify-center text-farm font-black shadow-2xl shadow-gray-900/20 shrink-0 uppercase tracking-tighter overflow-hidden transform transition-transform group-hover:rotate-3 duration-500 border-2 border-white/10">
               {branding?.logoImage ? (
                 <img
@@ -95,14 +98,14 @@ export default function Layout() {
               )}
             </div>
             <div className="min-w-0 flex flex-col justify-center">
-              <span className="font-black text-[17px] text-gray-900 block leading-none truncate uppercase tracking-[-0.03em]">
+              <span className="font-bold text-[17px] text-gray-900 block leading-none truncate uppercase tracking-[-0.03em] group-hover:text-farm transition-colors">
                 {branding?.appName || "SISTEMA"}
               </span>
-              <span className="text-[9px] font-black text-farm mt-2 leading-none uppercase tracking-[0.2em] opacity-80">
+              <span className="text-[9px] font-bold text-farm mt-2 leading-none uppercase tracking-[0.2em] opacity-80">
                 {branding?.subtitle || "ADMINISTRATIVO"}
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Navigation Area */}
           <div className="flex-1 px-4 overflow-y-auto custom-scrollbar-premium">
@@ -162,7 +165,10 @@ export default function Layout() {
 
         {/* Mobile Top Bar */}
         <div className="flex lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-[9999] items-center justify-between px-5 shadow-sm">
-          <Link to="/ajustes" className="flex items-center gap-3 active:scale-95 transition-transform">
+          <button 
+            onClick={() => setSettingsOpen(true)}
+            className="flex items-center gap-3 active:scale-95 transition-transform text-left"
+          >
             <div className="w-9 h-9 bg-gray-900 rounded-xl flex items-center justify-center text-farm overflow-hidden shadow-lg shadow-gray-900/20">
                {branding?.logoImage ? (
                 <img src={branding.logoImage} alt="Logo" className="w-full h-full object-cover p-1" />
@@ -171,14 +177,14 @@ export default function Layout() {
               )}
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="font-bold text-sm text-gray-900 uppercase tracking-tight leading-none truncate">
+              <span className="font-bold text-sm text-gray-900 uppercase tracking-tight leading-none truncate active:text-farm">
                 {branding?.appName || "Busi"}
               </span>
               <span className="text-[8px] font-medium text-farm uppercase tracking-widest mt-0.5 truncate">
                 {branding?.subtitle || "Panel de Control"}
               </span>
             </div>
-          </Link>
+          </button>
           <button 
             onClick={() => setSidebarOpen(true)}
             className="p-2.5 bg-gray-50 rounded-xl text-gray-900 hover:bg-gray-100 active:scale-95 transition-all shadow-sm border border-gray-100"
