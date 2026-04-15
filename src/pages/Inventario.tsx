@@ -174,7 +174,6 @@ export default function Inventario() {
             <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1 leading-none">
               MONITOREA LA EXISTENCIA DE PRODUCTOS Y SUMINISTROS
             </p>
-          </div>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 shrink-0 mb-4 px-2 lg:px-0 lg:hidden">

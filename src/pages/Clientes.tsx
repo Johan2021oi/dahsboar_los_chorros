@@ -381,8 +381,7 @@ export default function Clientes() {
           </button>
         )}
       </div>
-        </div>
-      </div>{" "}
+
       <div className="bg-white rounded-[1.5rem] lg:rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
         {" "}
         <div className="p-6 border-b flex items-center gap-4 bg-white group">
