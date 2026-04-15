@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { LogIn, Mail, Lock, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { LogIn, Mail, Lock, AlertCircle, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
@@ -83,16 +84,23 @@ export default function Login() {
             <div className="relative group">
               <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
                   if (error) setError(null);
                 }}
-                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                className="w-full pl-16 pr-14 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
                 placeholder="Contraseña"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-900 transition-colors duration-300"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
 
             <button
@@ -125,7 +133,7 @@ export default function Login() {
             </p>
             <Link 
               to="/register" 
-              className="text-farm font-semibold text-[11px] uppercase tracking-[0.15em] hover:text-gray-900 transition-all duration-300 hover:scale-105 active:scale-95 pb-0.5 border-b border-farm/10 hover:border-gray-900"
+              className="text-farm font-semibold text-[10px] uppercase tracking-[0.15em] hover:text-gray-900 transition-all duration-300 hover:scale-105 active:scale-95 pb-0.5 border-b border-farm/10 hover:border-gray-900"
             >
               Crea tu negocio gratis
             </Link>
