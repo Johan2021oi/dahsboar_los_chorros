@@ -54,7 +54,7 @@ export default function Login() {
               Bienvenido
             </h1>
             <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest leading-none">
-              Inicia sesión para gestionar tu negocio
+              Tu negocio inteligente
             </p>
           </div>
 

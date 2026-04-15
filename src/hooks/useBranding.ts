@@ -16,7 +16,7 @@ export interface Branding {
 const DEFAULT_BRANDING: Branding = {
   appName: 'BUSI',
   logoText: '💼',
-  subtitle: 'GESTIÓN DE NEGOCIOS',
+  subtitle: 'TU NEGOCIO INTELIGENTE',
   logoImage: '/logo-square.png',
 };
 

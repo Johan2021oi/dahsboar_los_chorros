@@ -69,7 +69,7 @@ export default function Register() {
               Nuevo Negocio
             </h1>
             <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest leading-none">
-              Únete a la nueva era de gestión inteligente
+              Tu negocio inteligente
             </p>
           </div>
 
