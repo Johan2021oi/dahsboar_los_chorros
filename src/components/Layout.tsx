@@ -52,7 +52,7 @@ export default function Layout() {
         {/* Toast Premium */}
         {toastMessage && (
           <div className="fixed top-24 right-1/2 translate-x-1/2 z-[100] animate-in slide-in-from-top-10 fade-in duration-500">
-            <div className="bg-gray-900/90 backdrop-blur-xl text-white px-8 py-4 rounded-[2rem] font-black shadow-2xl shadow-gray-900/20 flex items-center gap-3 text-sm border border-white/10 uppercase tracking-widest italic scale-105">
+            <div className="bg-gray-900/90 backdrop-blur-xl text-white px-8 py-4 rounded-[2rem] font-black shadow-2xl shadow-gray-900/20 flex items-center gap-3 text-sm border border-white/10 uppercase tracking-widest scale-105">
               <div className="w-2 h-2 bg-farm rounded-full animate-ping" />
               {toastMessage}
             </div>
@@ -93,11 +93,11 @@ export default function Layout() {
                   className="w-full h-full object-cover p-1"
                 />
               ) : (
-                <span className="text-xl italic">{branding?.logoText || "E"}</span>
+                <span className="text-xl">{branding?.logoText || "E"}</span>
               )}
             </div>
             <div className="min-w-0 flex flex-col justify-center">
-              <span className="font-black text-[17px] text-gray-900 block leading-none truncate uppercase tracking-[-0.03em] italic">
+              <span className="font-black text-[17px] text-gray-900 block leading-none truncate uppercase tracking-[-0.03em]">
                 {branding?.appName || "SISTEMA"}
               </span>
               <span className="text-[9px] font-black text-farm mt-2 leading-none uppercase tracking-[0.2em] opacity-80">
@@ -131,7 +131,7 @@ export default function Layout() {
                         className={isActive ? "text-farm" : "group-hover:text-gray-900"}
                       />
                     </div>
-                    <span className="text-[13px] tracking-wide uppercase italic">
+                    <span className="text-[13px] tracking-wide uppercase">
                       {item.name}
                     </span>
                     {isActive && (
@@ -163,7 +163,7 @@ export default function Layout() {
                 size={20}
                 className="group-hover:rotate-90 transition-transform duration-700"
               />
-              <span className="text-[11px] uppercase tracking-widest italic">Personalizar</span>
+              <span className="text-[11px] uppercase tracking-widest">Personalizar</span>
             </button>
 
             <button
@@ -171,7 +171,7 @@ export default function Layout() {
               className="flex items-center gap-4 w-full px-6 py-4 rounded-[1.25rem] text-red-400 hover:bg-red-50 hover:text-red-500 transition-all duration-500 font-black group"
             >
               <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
-              <span className="text-[11px] uppercase tracking-widest italic">Salir del Portal</span>
+              <span className="text-[11px] uppercase tracking-widest">Salir del Portal</span>
             </button>
           </div>
         </div>

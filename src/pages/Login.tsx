@@ -113,11 +113,11 @@ export default function Login() {
               {loading ? (
                 <div className="flex items-center gap-2">
                   <Loader2 className="w-5 h-5 animate-spin text-farm" />
-                  <span className="text-sm font-black uppercase tracking-widest italic">Cargando...</span>
+                  <span className="text-sm font-black uppercase tracking-widest">Cargando...</span>
                 </div>
               ) : (
                 <>
-                  <span className="text-sm font-black uppercase tracking-widest italic">Entrar al Sistema</span>
+                  <span className="text-sm font-black uppercase tracking-widest">Entrar al Sistema</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform text-farm duration-500" />
                 </>
               )}
