@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { X, Save } from "lucide-react";
+import { X, Save, Crop } from "lucide-react";
 import type { Branding } from "../hooks/useBranding";
+import ImageCropper from "./ImageCropper";
 interface BrandingModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -14,6 +15,8 @@ export default function BrandingModal({
   onSave,
 }: BrandingModalProps) {
   const [formData, setFormData] = useState<Branding>(currentBranding);
+  const [tempImage, setTempImage] = useState<string | null>(null);
+
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
@@ -68,10 +71,7 @@ export default function BrandingModal({
                       if (file) {
                         const reader = new FileReader();
                         reader.onloadend = () => {
-                          setFormData({
-                            ...formData,
-                            logoImage: reader.result as string,
-                          });
+                          setTempImage(reader.result as string);
                         };
                         reader.readAsDataURL(file);
                       }
@@ -281,6 +281,17 @@ export default function BrandingModal({
           </div>{" "}
         </div>{" "}
       </div>{" "}
+      
+      {tempImage && (
+        <ImageCropper 
+          image={tempImage}
+          onCancel={() => setTempImage(null)}
+          onCropComplete={(croppedImage) => {
+            setFormData({ ...formData, logoImage: croppedImage });
+            setTempImage(null);
+          }}
+        />
+      )}
     </div>
   );
 }
