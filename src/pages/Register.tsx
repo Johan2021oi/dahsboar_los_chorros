@@ -47,7 +47,8 @@ export default function Register() {
     if (authData.session) {
       navigate('/');
     } else {
-      setError('¡Cuenta creada! Por favor revisa tu correo para confirmar (si es necesario) o intenta iniciar sesión.');
+      // Si no hay sesión, es probable que se requiera confirmar el correo
+      setError('¡Cuenta creada con éxito! 🚀 Por favor, revisa tu correo electrónico para confirmar tu cuenta y poder iniciar sesión.');
       setLoading(false);
     }
   };
