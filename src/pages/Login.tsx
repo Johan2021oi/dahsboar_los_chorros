@@ -97,10 +97,10 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-500 hover:text-farm transition-all duration-300 z-20 p-2 hover:bg-gray-50 rounded-full flex items-center justify-center cursor-pointer"
+                className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-farm transition-all duration-300 z-20 p-1 hover:bg-gray-50 rounded-full flex items-center justify-center cursor-pointer"
                 title={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
               >
-                {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
 
@@ -129,7 +129,7 @@ export default function Login() {
           </form>
 
           <footer className="mt-5 pt-5 border-t border-gray-50 flex flex-col items-center gap-3">
-            <p className="text-gray-400 font-medium text-[13px] tracking-tight">
+            <p className="text-gray-400 font-medium text-[12px] tracking-tight">
               ¿No tienes una cuenta aún?
             </p>
             <Link 

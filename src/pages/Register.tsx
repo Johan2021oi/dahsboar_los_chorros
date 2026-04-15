@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { UserPlus, Mail, Lock, Store, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { UserPlus, Mail, Lock, Store, AlertCircle, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const businessRef = useRef<HTMLInputElement>(null);
@@ -107,14 +108,21 @@ export default function Register() {
             <div className="relative group">
               <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-farm transition-all duration-300" size={18} />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-16 pr-6 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
+                className="w-full pl-16 pr-14 py-4 bg-white border border-gray-100 focus:border-gray-900 focus:shadow-[0_0_0_4px_rgba(0,0,0,0.02)] rounded-[1.5rem] transition-all outline-none font-medium text-gray-900 placeholder:text-gray-400 placeholder:text-[13px] text-sm"
                 placeholder="Contraseña (mín. 6)"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-farm transition-all duration-300 z-20 p-1 hover:bg-gray-50 rounded-full flex items-center justify-center cursor-pointer"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
 
             <button
@@ -140,7 +148,7 @@ export default function Register() {
           </form>
 
           <footer className="mt-5 pt-5 border-t border-gray-50 flex flex-col items-center gap-3">
-            <p className="text-gray-400 font-medium text-[13px] tracking-tight">
+            <p className="text-gray-400 font-medium text-[12px] tracking-tight">
               ¿Ya tienes una cuenta?
             </p>
             <Link 
