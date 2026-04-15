@@ -221,8 +221,8 @@ export default function Gastos() {
         {/* Columna Izquierda: Historial */}
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <h2 className="text-lg font-black text-gray-800 uppercase tracking-tight">
-              HISTORIAL DE EGRESOS
+            <h2 className="text-lg font-black text-gray-800 uppercase tracking-tight leading-tight">
+              HISTORIAL DE <br /> EGRESOS
             </h2>
             <div className="flex items-center gap-1 bg-gray-100/50 p-1.5 rounded-2xl border border-gray-100 shrink-0">
               {range === "personalizado" && (
