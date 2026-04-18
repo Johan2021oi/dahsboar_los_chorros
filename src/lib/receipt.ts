@@ -23,6 +23,7 @@ export const generateReceipt = async (data: any, type: 'venta' | 'pago', brandin
   estimatedHeight += 12; // Client info header and name
   
   if (data.clientes) {
+    if (data.clientes.identificacion) estimatedHeight += 4;
     if (data.clientes.telefono) estimatedHeight += 4;
     if (data.clientes.email) estimatedHeight += 4;
     if (data.clientes.direccion) {
@@ -128,6 +129,10 @@ export const generateReceipt = async (data: any, type: 'venta' | 'pago', brandin
   y += 4;
 
   if (data.clientes) {
+    if (data.clientes.identificacion) {
+      doc.text(`CC/NIT: ${data.clientes.identificacion}`, margin, y);
+      y += 4;
+    }
     if (data.clientes.telefono) {
       doc.text(`Tel: ${data.clientes.telefono}`, margin, y);
       y += 4;
