@@ -216,7 +216,7 @@ export default function Pagos() {
             cliente_id: selectedCliente,
             monto: Number(monto),
             metodo_pago: metodo,
-            created_at: new Date(fechaPago).toISOString(),
+            created_at: new Date(fechaPago + "T12:00:00").toISOString(),
           })
           .eq("id", editingId);
         if (error) throw error;
@@ -227,7 +227,7 @@ export default function Pagos() {
             cliente_id: selectedCliente,
             monto: Number(monto),
             metodo_pago: metodo,
-            created_at: new Date(fechaPago).toISOString(),
+            created_at: new Date(fechaPago + "T12:00:00").toISOString(),
           },
         ]);
         if (error) throw error;

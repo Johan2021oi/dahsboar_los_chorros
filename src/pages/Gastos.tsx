@@ -137,13 +137,13 @@ export default function Gastos() {
     try {
       if (editingId) {
         const { error } = await (supabase.from("gastos") as any)
-          .update([{ ...newGasto, monto: Number(newGasto.monto) }])
+          .update([{ ...newGasto, monto: Number(newGasto.monto), fecha: new Date(newGasto.fecha + "T12:00:00").toISOString().split('T')[0] }])
           .eq("id", editingId);
         if (error) throw error;
         showNotification("success", "Gasto actualizado correctamente");
       } else {
         const { error } = await (supabase.from("gastos") as any).insert([
-          { ...newGasto, monto: Number(newGasto.monto) },
+          { ...newGasto, monto: Number(newGasto.monto), fecha: new Date(newGasto.fecha + "T12:00:00").toISOString().split('T')[0] },
         ]);
         if (error) throw error;
         showNotification("success", "Gasto guardado correctamente");
